@@ -1,4 +1,4 @@
-# Gestoria de todas IES Juan de la Cierva
+# Gestoria de notas IES Juan de la Cierva
 ## Tematica
  - Gestoria de notas 
 ## Objetivos
