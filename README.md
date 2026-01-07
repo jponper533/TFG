@@ -10,6 +10,7 @@
   - Alumno: Podra ver sus notas y dejar comentarios para el profesor
 - Vistas:
   - Home
+  - Tablon de anuncios
   - Gestion de notas: Se podra crear y gestionar las notas ya puestas
   - Login
   - Register
@@ -30,11 +31,11 @@
  - Despliegue:
    - Docker
    - AWS Amazon
-## [Esquema entida-relación](https://github.com/nnavrio140/TFG-Peluqueria/wiki/Modelo-Entidad-Relaci%C3%B3n)
+## [Esquema entidad-relación](https://github.com/jponper533/TFG/wiki/Modelo-Entidad-Relaci%C3%B3n)
 
-## [Documentación técnica](https://github.com/nnavrio140/TFG-Peluqueria/wiki/DOCUMENTACI%C3%93N-T%C3%89CNICA)
+## [Documentación técnica](https://github.com/jponper533/TFG/wiki/DOCUMENTACION-TECNICA)
 
-## [Bitacora del proyecto](https://github.com/nnavrio140/TFG-Peluqueria/wiki/BIT%C3%81CORA-DEL-PROYECTO)
+## [Bitacora del proyecto](https://github.com/jponper533/TFG/wiki/BIT%C3%81CORA-DEL-PROYECTO)
 
 ## Bibliografía
 
