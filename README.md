@@ -23,7 +23,7 @@
    - Figma para prototipado
    - React
    - Module CSS
-   - Librerias: esto hay que completarlo..
+   - Librerias: esto hay que completarlo
  - Backend:
    - Laravel
    - ORM: Eloquent
@@ -40,4 +40,4 @@
 ## Bibliografía
 
 ## Autor
- - Nicolás Navarrete Ríos
+ - Javier Ponce Pérez
