@@ -5,8 +5,8 @@
  - Es una aplicacion que sirve para gestionar las notas de los alumnos
 ## Funcionalidades
 - Roles
-  - Admin: Podra hacer todo lo relacionado a los dos roles siguientes y borrar o poner asignaturas
-  - Profesor: Podra crear y ver las notas relacionadas a sus asignaturas
+  - Admin: Podra hacer todo lo relacionado a los dos roles siguientes, borrar o poner asignaturas y poner noticias en el tablon de anuncios
+  - Profesor: Podra crear y ver las notas relacionadas a sus asignaturas, ademas de comentarlos
   - Alumno: Podra ver sus notas y dejar comentarios para el profesor
 - Vistas:
   - Home
@@ -16,7 +16,8 @@
   - Register
   - Nosotros
   - Contacto
-  - CRUD usuario y notas
+  - CRUD de Usuario
+  - CRUD notas 
   - CRUD Perfil
 ## Arquitectura/Tecnología
  - Frontend:
