@@ -18,7 +18,7 @@
   - Contacto
   - CRUD de Usuario
   - CRUD notas 
-  - CRUD Perfil
+  - Vista Perfil
 ## Arquitectura/Tecnología
  - Frontend:
    - Figma para prototipado
