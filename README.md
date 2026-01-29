@@ -13,7 +13,7 @@
   - Tablon de anuncios
   - Gestion de notas: Se podra crear y gestionar las notas ya puestas
   - Login
-  - Register
+  - Recuperar contraseña
   - Nosotros
   - Contacto
   - CRUD de Usuario
