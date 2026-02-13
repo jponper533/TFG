@@ -17,7 +17,8 @@
   - Nosotros
   - Contacto
   - CRUD de Usuario
-  - CRUD notas 
+  - CRUD notas
+  - CRUD Admin
   - Vista Perfil
 ## Arquitectura/Tecnología
  - Frontend:
