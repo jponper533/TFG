@@ -11,7 +11,6 @@
 - Vistas:
   - Home
   - Tablon de anuncios
-  - Gestion de notas: Se podra crear y gestionar las notas ya puestas
   - Login
   - Recuperar contraseña
   - Nosotros
