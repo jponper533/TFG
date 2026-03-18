@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asignaturas', function(Blueprint $table) {
+        Schema::create('trimestres', function(Blueprint $table) {
             $table->id();
-            $table->string('nombre_asignatura')->unique();
+            $table->integer('num_trimestre');
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asignaturas');
+        Schema::dropIfExists('trimestres');
     }
 };

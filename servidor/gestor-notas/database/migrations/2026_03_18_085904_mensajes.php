@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asignaturas', function(Blueprint $table) {
+        Schema::create('mensajes', function(Blueprint $table) {
             $table->id();
-            $table->string('nombre_asignatura')->unique();
+            $table->foreignId('conversacion_id')->references('id')->on('conversaciones');
+            $table->foreignId('remitente_id')->references('id')->on('users');
+            $table->string('contenido');
+            $table->timestamps();
         });
     }
 
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asignaturas');
+        Schema::dropIfExists('mensajes');
     }
 };
