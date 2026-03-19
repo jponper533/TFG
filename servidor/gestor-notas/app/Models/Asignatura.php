@@ -16,13 +16,18 @@ class Asignatura extends Model
         'user_id'
     ];
 
-    public function user()
+    public function modulo_alumno()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(ModelAlumno::class, 'asignatura_id');
+    }
+
+    public function modulo_profesor()
+    {
+        return $this->hasMany(ModelProfesor::class, 'asignatura_id');
     }
 
     public function examenes()
     {
-        return $this->hasMany(Examen::class);
+        return $this->hasMany(Examen::class, 'asignatura_id');
     }
 }

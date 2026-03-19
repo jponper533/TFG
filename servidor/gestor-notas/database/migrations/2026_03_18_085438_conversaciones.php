@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('conversaciones', function(Blueprint $table) {
             $table->id();
-            $table->foreignId('alumno_id')->references('id')->on('users');
-            $table->foreignId('profesor_id')->references('id')->on('users');
+            $table->foreignId('user_alum_id')->references('id')->on('users');
+            $table->foreignId('user_prof_id')->references('id')->on('users');
             $table->foreignId('id_examen')->references('id')->on('examenes');
             $table->timestamps();
         });

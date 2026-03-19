@@ -56,28 +56,24 @@ class User extends Authenticatable
         ];
     }
 
-    public function asignatura()
-    {
-        return $this->hasMany(Asignatura::class, 'user_id');
-    }
-
-    public function asignaturas()
-    {
-        return $this->hasMany(Asignatura::class, 'user_id');
-    }
-
     public function examen()
     {
-        return $this->hasMany(Examen::class, 'user_id');
+        return $this->hasMany(Examen::class, 'user_prof_id', 'user_alum_id');
     }
 
-
-    public function examenes()
+    public function modulo_alumno()
     {
-        return $this->hasManyThrough(
-            Examen::class,
-            Asignatura::class
-        );
+        return $this->hasMany(ModelAlumno::class, 'user_id');
+    }
+
+    public function modulo_profesor()
+    {
+        return $this->hasMany(ModelProfesor::class, 'user_id');
+    }
+
+     public function conversacion()
+    {
+        return $this->hasMany(ModelAlumno::class, 'user_id');
     }
 
     public function rol()

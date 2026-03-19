@@ -8,18 +8,14 @@ class Conversacion extends Model
 {
     protected $fillable = [
         'id',
-        'id-alumno',
+        'user_alum_id',
+        'user_prof_id',
         'id_examen'
     ];
 
-    public function modulo_alumno()
+    public function users()
     {
-        return $this->belongsTo(ModelAlumno::class);
-    }
-
-    public function modulo_profesor()
-    {
-        return $this->belongsTo(ModelProfesor::class);
+        return $this->belongsTo(User::class);
     }
 
     public function mensajes()

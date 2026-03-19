@@ -8,16 +8,15 @@ class ModelAlumno extends Model
 {
     protected $fillable = [
         'id',
-        'alumno_id',
+        'user_id',
         'asignatura_id'
     ];
 
-    public function examen()
-    {
-        return $this->belongsTo(Conversacion::class, 'conversacion_id');
+    public function users() {
+        return $this->belongsTo(User::class, 'user_id');
     }
-
-    public function conversacion() {
-        return $this->hasMany(Conversacion::class, '');
+    
+    public function asignatura() {
+        return $this->belongsTo(Asignatura::class, 'asignatura_id');
     }
 }

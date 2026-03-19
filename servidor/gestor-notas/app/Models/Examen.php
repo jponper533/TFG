@@ -18,9 +18,9 @@ class Examen extends Model
         'id_trimestre'
     ];
 
-    public function modulo_alumno()
+    public function users()
     {
-        return $this->belongsTo(ModelAlumno::class, 'alumno_id');
+        return $this->belongsTo(User::class, 'alumno_id');
     }
 
     public function trimestre()
@@ -28,13 +28,14 @@ class Examen extends Model
         return $this->belongsTo(Trimestre::class, 'id_trimestre');
     }
 
-    public function modulo_profesor()
-    {
-        return $this->belongsTo(ModelProfesor::class, 'profesor_id');
-    }
-
     public function asignatura()
     {
         return $this->belongsTo(Asignatura::class, 'asignatura_id');
     }
+
+    public function conversacion()
+    {
+        return $this->hasmany(Conversacion::class, 'id_examen');
+    }
+
 }

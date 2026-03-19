@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mensajes', function(Blueprint $table) {
             $table->id();
             $table->foreignId('conversacion_id')->references('id')->on('conversaciones');
-            $table->foreignId('remitente_id')->references('id')->on('users');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->string('contenido');
             $table->timestamps();
         });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('modulo_profesor', function(Blueprint $table) {
             $table->id();
-            $table->foreignId('profesor_id')->references('id')->on('users');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('asignatura_id')->references('id')->on('asignaturas');
             $table->timestamps();
         });

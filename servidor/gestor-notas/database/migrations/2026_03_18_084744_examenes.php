@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('asignatura_id')->nullable()->constrained();
             $table->integer('nota');
             $table->timestamps();
-            $table->foreignId('profesor_id')->references('id')->on('users');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('id_trimestre')->references('id')->on('trimestres');
         });
     }
