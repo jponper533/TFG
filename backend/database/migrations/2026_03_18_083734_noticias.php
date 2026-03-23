@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('noticias', function(Blueprint $table) {
             $table->id();
-            $table->string('titulo')->unique();
-            $table->string('descripcion')->unique();
+            $table->string('titulo');
+            $table->string('descripcion');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });

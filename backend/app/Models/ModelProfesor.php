@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ModelProfesor extends Model
 {
+    use HasFactory;
+    protected $table = 'modulo_profesor';
+
     protected $fillable = [
         'id',
         'user_id',
@@ -17,7 +21,8 @@ class ModelProfesor extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function conversacion() {
+    public function conversacion()
+    {
         return $this->hasMany(Conversacion::class, '');
     }
 }

@@ -9,4 +9,8 @@ enum AsignaturaEnum: string
     case HISTORIA = 'Historia';
     case EDUCACION_FISICA = 'Educacion fisica';
     case RELIGION = 'Religion';
+    case FISICA = 'Fisica';
+    case QUIMICA = 'Quimica';
+    case BIOLOGIA = 'Biologia';
+    case INGLES = 'Ingles';
 }

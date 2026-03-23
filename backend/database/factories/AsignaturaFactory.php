@@ -21,11 +21,9 @@ class AsignaturaFactory extends Factory
     public function definition(): array
     {
         $asignatura = fake()->unique()->randomElement(AsignaturaEnum::cases());
-        $profesorRol = Rol::where('slug', RoleSlug::PROF)->first();
 
         return [
             'nombre_asignatura' => $asignatura->value,
-            'user_id' => User::where('role_id', $profesorRol->id)->inRandomOrder()->value('id'),
         ];
     }
 }
