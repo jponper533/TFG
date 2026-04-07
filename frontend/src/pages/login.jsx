@@ -1,7 +1,7 @@
-import styles from "./home.module.css";
+import styles from "./login.module.css";
 import { useState, useEffect } from "react";
 
-function Home() {
+function Login() {
     const [usuarios, setUsuarios] = useState([]); // usamos array en lugar de null
 
     useEffect(() => {
@@ -41,4 +41,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default Login;
