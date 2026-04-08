@@ -12,7 +12,7 @@ class AuthController extends Controller
     // Procesa el login del usuario
     public function login(Request $request)
     {
-        $credenciales = $request->only('email', 'password');
+        $credenciales = $request->only('name', 'password');
 
         // Busca el usuario y lo autentica
         if (Auth::attempt($credenciales)) {

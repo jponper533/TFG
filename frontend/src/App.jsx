@@ -1,29 +1,24 @@
 import "./styles/stylesGlobales.css";
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
 import BigLayout from "./pages/BigLayout.jsx";
 import SobreNosotros from "./pages/sobre-nosotros.jsx";
 import Contactos from "./pages/contactos.jsx";
-import Home from "./pages/Home.jsx";
-
-
-
+import Login from "./pages/login.jsx";
+import ProtectedRoute from "./components/rutaProtegida.jsx"; // nuevo
 
 function App() {
-
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<BigLayout />} >
+    <Routes>
+      {/* Login */}
+      <Route path="/" element={<Login />} />
 
-          {/* RUTAS NORMALES */}
-          <Route index element={<Home />} />
-          <Route path="/sobre-nosotros" element={<SobreNosotros />} />
-          <Route path="/contactos" element={<Contactos />} />
-        </Route>
-
-      </Routes>
-    </>
-  )
+      {/* Rutas protegidas */}
+      <Route path="/" element={<ProtectedRoute><BigLayout /></ProtectedRoute>}>
+        <Route path="sobre-nosotros" element={<SobreNosotros />} />
+        <Route path="contactos" element={<Contactos />} />
+      </Route>
+    </Routes>
+  );
 }
 
-export default App
+export default App;
