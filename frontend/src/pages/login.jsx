@@ -61,9 +61,21 @@ function Login() {
           placeholder="Contraseña"
           required
         />
+
         {error && <p className={styles.error}>{error}</p>}
         <button className={styles.boton} type="submit" disabled={loading}>
           {loading ? "Cargando..." : "Iniciar Sesión"}
+        </button>
+      </form>
+
+      <form>
+        <button
+          type="button"
+          className={styles.boton}
+          disabled={loading}
+          onClick={() => navigate("/forgot-password")}
+        >
+          ¿Olvidaste tu contraseña?
         </button>
       </form>
     </main>

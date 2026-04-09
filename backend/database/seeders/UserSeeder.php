@@ -19,6 +19,9 @@ class UserSeeder extends Seeder
         // Sin cadenas mágicas, utilizamos la enumeración RoleSlug
         $administradorRole = Rol::where('slug', RoleSlug::ADMIN)->first();
         User::firstOrCreate(['name' => 'admin', 'email' => 'admin@admin.com', 'password' => bcrypt('1234'), 'role_id' => $administradorRole->id, 'telefono'=>rand(100, 999)]);
+
+        $administradorRole = Rol::where('slug', RoleSlug::ADMIN)->first();
+        User::firstOrCreate(['name' => 'prueba', 'email' => 'jponper533@g.educaand.es', 'password' => bcrypt('jpp.2022'), 'role_id' => $administradorRole->id, 'telefono'=>rand(100, 999)]);
         
         // Sin cadenas mágicas, utilizamos la enumeración RoleSlug
         $usuarioRole = Rol::where('slug', RoleSlug::ALUM)->first();

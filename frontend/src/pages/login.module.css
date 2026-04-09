@@ -1,19 +1,19 @@
-
 .main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
-  background-color: #D9F2FF;
-  min-height: 100vh;
-  align-items: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    background-color: #D9F2FF;
+    min-height: 100vh;
+    align-items: center;
 }
 
 .titulo {
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 70px;
     margin-top: 50px;
+    margin-bottom: 30px;
 }
 
 .formulario {
@@ -21,23 +21,36 @@
     flex-direction: column;
     gap: 1rem;
     margin-top: 30px;
+    align-items: center;
 }
 
 .input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-top: 40px;
+    border: none;
+    border-bottom: 2px solid #6f7f86;
+    background: transparent;
+    padding: 10px 5px;
+    font-size: 16px;
+    outline: none;
+    width: 30rem;
+}
+
+
+input::placeholder {
+  color: #2c3e50;
 }
 
 .boton {
     padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #715950;
+    color: #f3f2f2;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
+    margin-top: 20px;
+    max-width: 200px;
 }
 
 .boton:hover {
-    background-color: #0056b3;
+    background-color: #4d3b35;
 }

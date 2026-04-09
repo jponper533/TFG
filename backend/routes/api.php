@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ExamenController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Auth\PasswordResetController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -24,3 +25,5 @@ Route::apiResource('usuariosApi', UserController::class)->parameters(['usuariosA
 Route::apiResource('examenesApi', ExamenController::class)->parameters(['examenesApi' => 'examen']);
 // });
 
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink']);
+Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']);
