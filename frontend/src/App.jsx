@@ -7,6 +7,7 @@ import Login from "./pages/login.jsx";
 import ProtectedRoute from "./components/rutaProtegida.jsx";
 import ForgotPassword from "./pages/forgotpassword.jsx";
 import ResetPassword from "./pages/resetpassword.jsx";
+import Home from "./pages/home.jsx";
 
 
 function App() {
@@ -19,8 +20,10 @@ function App() {
 
       {/* Rutas protegidas */}
       <Route path="/" element={<ProtectedRoute><BigLayout /></ProtectedRoute>}>
+        <Route path="home" element={<Home />} />
         <Route path="sobre-nosotros" element={<SobreNosotros />} />
         <Route path="contactos" element={<Contactos />} />
+
       </Route>
     </Routes>
   );
