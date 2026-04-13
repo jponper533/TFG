@@ -95,6 +95,24 @@
   background-color: #b60d0d;
 }
 
+.enlacePerfil {
+  background: rgb(75, 129, 211);
+  color: #fdfdfd;
+  padding: 8px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 20px;
+}
+.enlacePerfil:hover {
+  background-color: #3964a3;
+}
+
+span {
+  font-size: 14px;
+  color: #fdfdfd;
+}
+
 /* Opcional: hacer que el nav sea responsive */
 @media (max-width: 600px) {
   .contenedorIconos {

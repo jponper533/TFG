@@ -4,15 +4,16 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { FiUser } from "react-icons/fi";
 import { LiaLanguageSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navigation() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); 
-    setDropdownOpen(false);            
-    navigate("/");                     
+    localStorage.removeItem("token");
+    setDropdownOpen(false);
+    navigate("/");
   };
 
   return (
@@ -46,6 +47,12 @@ function Navigation() {
               >
                 Cerrar sesión
               </button>
+
+                <NavLink className={navStyles.enlacePerfil}
+                  to="/perfil-usuario"
+                >
+                  <span>Ver perfil</span>
+                </NavLink>
             </div>
           )}
         </div>
