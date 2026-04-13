@@ -25,5 +25,8 @@ Route::apiResource('usuariosApi', UserController::class)->parameters(['usuariosA
 Route::apiResource('examenesApi', ExamenController::class)->parameters(['examenesApi' => 'examen']);
 // });
 
+Route::get('/noticias', [App\Http\Controllers\Api\NoticiasController::class, 'index']);
+Route::get('/noticias/{id}', [App\Http\Controllers\Api\NoticiasController::class, 'show']);
+
 Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink']);
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']);

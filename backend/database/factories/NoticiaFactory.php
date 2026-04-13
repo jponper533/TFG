@@ -18,7 +18,7 @@ class NoticiaFactory extends Factory
     {
         return [
             'titulo' => fake()->sentence(4),
-            'descripcion' => fake()->text(),
+            'descripcion' => fake()->text(30),
             'user_id' => fake()->numberBetween(1, 5),
         ];
     }

@@ -20,7 +20,7 @@ function App() {
 
       {/* Rutas protegidas */}
       <Route path="/" element={<ProtectedRoute><BigLayout /></ProtectedRoute>}>
-        <Route path="home" element={<Home />} />
+        <Route path="home" index element={<Home />} />
         <Route path="sobre-nosotros" element={<SobreNosotros />} />
         <Route path="contactos" element={<Contactos />} />
 

@@ -13,6 +13,6 @@ class NoticiaSeeder extends Seeder
      */
     public function run(): void
     {
-        Noticia::factory()->count(random_int(10, 20))->create();
+        Noticia::factory()->count(20)->create();
     }
 }

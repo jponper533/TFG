@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./login.module.css";
+import { LOGIN_ENDPOINT } from '../../endpoints.js';
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ function Login() {
     const password = e.target.password.value;
 
     try {
-      const resultado = await fetch("http://localhost:8000/api/login", {
+      const resultado = await fetch(`${LOGIN_ENDPOINT}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, password }),
@@ -35,7 +36,7 @@ function Login() {
       console.log("Login exitoso:", data);
 
       localStorage.setItem("token", data.token);
-      navigate("/contactos");
+      navigate("/home");
     } catch (err) {
       setError(err.message);
     } finally {
