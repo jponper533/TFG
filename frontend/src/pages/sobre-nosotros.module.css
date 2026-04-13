@@ -47,6 +47,7 @@
   gap: 50px;
   flex-wrap: wrap;
    font-family: 'Roboto Mono', monospace;
+  line-height: 30px;
 }
 
 .sobreNosotrosAbajoContainer {
