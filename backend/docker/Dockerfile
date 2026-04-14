@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y unzip git libzip-dev && docker-php-ext-
 # Habilitar mod_rewrite de Apache
 RUN a2enmod rewrite
 
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
