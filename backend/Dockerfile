@@ -18,7 +18,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 WORKDIR /var/www/html
 
-COPY composer.json composer.lock ./
+
 RUN composer install --no-interaction --prefer-dist --no-scripts
 
 COPY . .
