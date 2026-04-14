@@ -18,7 +18,13 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 WORKDIR /var/www/html
 
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --prefer-dist --no-scripts
+
 COPY . .
 
+RUN php artisan storage:link
+
 EXPOSE 8000
+CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
 # CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
