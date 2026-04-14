@@ -1,20 +1,24 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
+# ARG UID
+# ARG GID
+
+# RUN groupadd -g ${GID} laravel \
+#    && useradd -u ${UID} -g laravel -m laravel
+
+# dependencias
 RUN apt-get update && apt-get install -y \
-    libpng-dev libonig-dev libxml2-dev zip unzip git curl libzip-dev \
+    libpng-dev libonig-dev libxml2-dev zip unzip git curl libzip-dev pkg-config \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
-    && a2enmod rewrite
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer \
+    && chmod +x /usr/local/bin/composer
 
 WORKDIR /var/www/html
 
 COPY . .
-
-COPY ./docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
-
-EXPOSE 80
-
-RUN ls -la
-RUN ls -la public
 
 EXPOSE 8000
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
