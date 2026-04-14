@@ -24,9 +24,11 @@ function Home() {
                 setLoading(false);
             });
     }, [page]);
-
+console.log(import.meta.env.VITE_API_BASE_URL);
     return (
+        
         <main className={styles.main}>
+            
             <h1>Bienvenido X</h1>
             <h2>Calendario</h2>
             <div className={styles.calendario}>
