@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import navStyles from "./navigation.module.css";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { FiUser } from "react-icons/fi";
@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 
 function Navigation() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [users, setUser] = useState(null);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -15,6 +16,24 @@ function Navigation() {
     setDropdownOpen(false);
     navigate("/");
   };
+
+  useEffect(() => {
+    const getUser = async () => {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch("http://localhost:8000/api/me", {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      const data = await res.json();
+      setUser(data);
+    };
+
+    getUser();
+  }, []);
 
   return (
     <nav>
@@ -48,16 +67,25 @@ function Navigation() {
                 Cerrar sesión
               </button>
 
-                <NavLink className={navStyles.enlacePerfil}
-                  to="/perfil-usuario"
+
+              <NavLink className={navStyles.enlacePerfil}
+                to="/perfil-usuario"
+              >
+                <span>Ver perfil</span>
+              </NavLink>
+
+              {users?.role_id === 1 && (
+                < NavLink className={navStyles.enlacePerfil}
+                  to="/usuarios-admin"
                 >
-                  <span>Ver perfil</span>
+                  <span>Ver usuarios</span>
                 </NavLink>
+              )}
             </div>
           )}
         </div>
       </div>
-    </nav>
+    </nav >
   );
 }
 

@@ -13,20 +13,15 @@ class UpdateUsuariosRequest extends FormRequest
      */
     public function authorize(): bool
     {
-
-        $user = Auth::user();
-
-        if ($user->rol->slug === RoleSlug::ADMIN) {
-            return true;
-        }    
-
-        return false;
+        return true;
     }
 
     protected function prepareForValidation()
     {
-        if (empty($this->password)) {
-            $this->request->remove('password');
+        if ($this->password === '') {
+            $this->merge([
+                'password' => null
+            ]);
         }
     }
 
@@ -38,22 +33,19 @@ class UpdateUsuariosRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->route('usuario')->id,
-            'password' => 'sometimes|required|string|min:4',
-            'role_id' => 'required|exists:roles,id',
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'password' => 'nullable|string|min:4',
+            'telefono' => 'nullable|string',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'El campo nombre es obligatorio.',
             'email.required' => 'El campo email es obligatorio.',
             'email.email' => 'El campo email debe ser una dirección de correo electrónico válida.',
             'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
-            'role_id.required' => 'El campo rol es obligatorio.',
-            'role_id.exists' => 'El rol seleccionado no es válido.',
+            'telefono.required' => 'El campo teléfono es obligatorio.',
         ];
     }
 }

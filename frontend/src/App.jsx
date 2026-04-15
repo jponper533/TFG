@@ -9,6 +9,7 @@ import ForgotPassword from "./pages/forgotpassword.jsx";
 import ResetPassword from "./pages/resetpassword.jsx";
 import Home from "./pages/home.jsx";
 import PerfilUsuario from "./pages/perfilUsuario.jsx";
+import UsuariosAdmin from "./pages/usuariosAdmin.jsx";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="sobre-nosotros" element={<SobreNosotros />} />
         <Route path="contactos" element={<Contactos />} />
         <Route path="perfil-usuario" element={<PerfilUsuario />} />
+        <Route path="usuarios-admin" element={<UsuariosAdmin />} />
       </Route>
     </Routes>
   );

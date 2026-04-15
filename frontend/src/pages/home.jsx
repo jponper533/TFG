@@ -8,6 +8,7 @@ function Home() {
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [users, setUser] = useState(null);
 
     useEffect(() => {
         setLoading(true);
@@ -24,12 +25,31 @@ function Home() {
                 setLoading(false);
             });
     }, [page]);
+
+    useEffect(() => {
+    const getUser = async () => {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch("http://localhost:8000/api/me", {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      const data = await res.json();
+      setUser(data);
+    };
+
+    getUser();
+  }, []);
+
     
     return (
         
         <main className={styles.main}>
             
-            <h1>Bienvenido X</h1>
+            <h1>Bienvenido {users?.name || "Usuario"}</h1>
             <h2>Calendario</h2>
             <div className={styles.calendario}>
 
