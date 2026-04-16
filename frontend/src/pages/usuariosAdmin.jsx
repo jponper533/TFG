@@ -56,24 +56,24 @@ function UsuariosAdmin() {
                     )}
                 </div>
                 <div className={styles.pagination}>
-                                <button
-                                    onClick={() => setPage(page - 1)}
-                                    disabled={page === 1}
-                                >
-                                    ← Anterior
-                                </button>
+                    <button
+                        onClick={() => setPage(page - 1)}
+                        disabled={page === 1}
+                    >
+                        ← Anterior
+                    </button>
 
-                                <span>
-                                    Página {page} de {totalPages}
-                                </span>
+                    <span>
+                        Página {page} de {totalPages}
+                    </span>
 
-                                <button
-                                    onClick={() => setPage(page + 1)}
-                                    disabled={page === totalPages}
-                                >
-                                    Siguiente →
-                                </button>
-                            </div>
+                    <button
+                        onClick={() => setPage(page + 1)}
+                        disabled={page === totalPages}
+                    >
+                        Siguiente →
+                    </button>
+                </div>
             </div>
         </main>
     )
