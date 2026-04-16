@@ -102,7 +102,7 @@ function UsuariosAdmin() {
 
                                     <div className={styles.botones}>
                                         <NavLink
-                                            to="/perfil-usuario"
+                                            to={`/usuarios-edit/${user.id}`}
                                             className={navStyles.iconButton}
                                             target="_blank"
                                         >
