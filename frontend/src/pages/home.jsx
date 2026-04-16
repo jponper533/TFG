@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./home.module.css";
 import MyCalendar from "../components/calendar.jsx";
-import { NOTICIAS_INDEX_ENDPOINT } from '../../endpoints.js';
+import { NOTICIAS_INDEX_ENDPOINT, USUARIOS_ME_ENDPOINT } from '../../endpoints.js';
 
 function Home() {
     const [noticias, setNoticias] = useState([]);
@@ -30,7 +30,7 @@ function Home() {
     const getUser = async () => {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8000/api/me", {
+      const res = await fetch(`${USUARIOS_ME_ENDPOINT}`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
