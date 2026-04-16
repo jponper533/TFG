@@ -30,26 +30,25 @@
 
 .card {
     display: flex;
-    gap: 15px;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: row;
     flex-wrap: wrap;
-    margin-bottom: 50px;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1000px;
 }
 
 .userCard {
-    background-color: #fff7f7;
-    border: 1px solid #e5e5e5;
-    border-radius: 12px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 15px;
-    margin-left: 110px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 250px;
-
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.userCard p {
+    margin-top: 10px;
 }
 
 .userCard:hover {
