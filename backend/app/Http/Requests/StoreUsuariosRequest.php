@@ -13,13 +13,8 @@ class StoreUsuariosRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user = Auth::user();
-
-        if ($user->rol->slug === RoleSlug::ADMIN) {
+        
             return true;
-        }    
-
-        return false; 
     }
 
     /**
@@ -32,7 +27,8 @@ class StoreUsuariosRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:6',
+            'telefono' => 'nullable|string|max:20',
             'role_id' => 'required|exists:roles,id',
 
         ];
@@ -47,6 +43,8 @@ class StoreUsuariosRequest extends FormRequest
             'email.unique' => 'El email ya está en uso.',
             'password.required' => 'El campo contraseña es obligatorio.',
             'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+            'telefono.string' => 'El campo teléfono debe ser una cadena de texto.',
+            'telefono.max' => 'El campo teléfono no debe exceder los 20 caracteres.',
             'role_id.required' => 'El campo rol es obligatorio.',
             'role_id.exists' => 'El rol seleccionado no es válido.',
         ];

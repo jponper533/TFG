@@ -15,6 +15,8 @@ Route::middleware('auth:sanctum')->get('/me', [UserController::class, 'me']);
 Route::middleware('auth:sanctum')->get('/userIndex', [UserController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/userShow/{id}', [UserController::class, 'show']);
 Route::middleware('auth:sanctum')->delete('/userDelete/{id}', [UserController::class, 'delete']);
+Route::post('/userStore', [UserController::class, 'store']);
+Route::middleware('auth:sanctum')->get('/roles', [UserController::class, 'roles']);
 
 // Route::post('/examen', [ExamenController::class, 'store']);
 // Route::put('/examen/{id}', [ExamenController::class, 'update']);

@@ -130,3 +130,19 @@ h2 {
     display: flex;
     gap: 10px;
 }
+
+.crearUsuario {
+    padding: 0.5rem 1rem;
+    background-color: #715950;
+    color: #f3f2f2;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    max-width: 200px;
+}
+
+.crearUsuario:hover {
+    background-color: #4d3b35;
+}
+

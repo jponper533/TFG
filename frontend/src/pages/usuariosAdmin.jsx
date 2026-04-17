@@ -90,6 +90,14 @@ function UsuariosAdmin() {
         <main className={styles.main}>
             <h1>USUARIOS</h1>
 
+<div className={styles.crearUsuario}>
+            <NavLink
+                to={`/usuarios-create`}
+                className={navStyles.iconButton}
+            >
+                Crear usuario 
+            </NavLink>
+</div>
             <div className={styles.contorno}>
                 <div className={styles.card}>
                     {loading ? (

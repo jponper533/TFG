@@ -6,3 +6,5 @@ export const USUARIOS_ME_ENDPOINT = `${API_BASE_URL}/me`;
 export const USUARIOS_INDEX_ENDPOINT = `${API_BASE_URL}/userIndex`;
 export const USUARIOS_DELETE_ENDPOINT = `${API_BASE_URL}/userDelete`;
 export const USUARIOS_SHOW_ENDPOINT = `${API_BASE_URL}/userShow`;
+export const USUARIOS_STORE_ENDPOINT = `${API_BASE_URL}/userStore`;
+export const ROLES_ENDPOINT = `${API_BASE_URL}/roles`;

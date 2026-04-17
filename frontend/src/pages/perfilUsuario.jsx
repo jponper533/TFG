@@ -2,6 +2,7 @@ import { USUARIOS_UPDATE_ENDPOINT } from '../../endpoints.js';
 import styles from './login.module.css'
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { USUARIOS_ME_ENDPOINT } from '../../endpoints.js';
 
 function PerfilUsuario() {
 
@@ -17,7 +18,7 @@ function PerfilUsuario() {
     const getUser = async () => {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8000/api/me", {
+      const res = await fetch(`${USUARIOS_ME_ENDPOINT}`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`

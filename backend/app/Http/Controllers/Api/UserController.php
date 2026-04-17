@@ -92,4 +92,12 @@ class UserController extends Controller
         $usuario->delete();
         return response()->json(['message' => 'Usuario eliminado correctamente'], 200);
     }    
+
+    public function roles()
+    {
+        $roles = Rol::all();
+
+        return response()->json($roles, 200);
+    }
+    
 }
