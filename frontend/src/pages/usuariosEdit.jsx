@@ -95,7 +95,6 @@ function UsuariosEdit() {
           onChange={(e) =>
             setForm({ ...form, email: e.target.value })
           }
-          required
         />
 
         {/* PASSWORD */}

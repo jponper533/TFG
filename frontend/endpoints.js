@@ -8,3 +8,4 @@ export const USUARIOS_DELETE_ENDPOINT = `${API_BASE_URL}/userDelete`;
 export const USUARIOS_SHOW_ENDPOINT = `${API_BASE_URL}/userShow`;
 export const USUARIOS_STORE_ENDPOINT = `${API_BASE_URL}/userStore`;
 export const ROLES_ENDPOINT = `${API_BASE_URL}/roles`;
+export const TOKEN_VERIFY_ENDPOINT = `${API_BASE_URL}/verify-token`;

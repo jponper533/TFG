@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Api\NoticiasController;
+use Illuminate\Http\Request;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -17,6 +18,9 @@ Route::middleware('auth:sanctum')->get('/userShow/{id}', [UserController::class,
 Route::middleware('auth:sanctum')->delete('/userDelete/{id}', [UserController::class, 'delete']);
 Route::post('/userStore', [UserController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/roles', [UserController::class, 'roles']);
+Route::middleware('auth:sanctum')->get('/verify-token', function (Request $request) {
+    return $request->user();
+});
 
 // Route::post('/examen', [ExamenController::class, 'store']);
 // Route::put('/examen/{id}', [ExamenController::class, 'update']);
