@@ -112,7 +112,6 @@ function UsuariosAdmin() {
                                         <NavLink
                                             to={`/usuarios-edit/${user.id}`}
                                             className={navStyles.iconButton}
-                                            target="_blank"
                                         >
                                             <MdEdit size={20} color="blue" />
                                         </NavLink>

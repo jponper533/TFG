@@ -119,7 +119,6 @@ function UsuariosEdit() {
           onChange={(e) =>
             setForm({ ...form, telefono: e.target.value })
           }
-          required
         />
 
         {error && <p className={styles.error}>{error}</p>}

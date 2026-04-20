@@ -5,6 +5,7 @@ import { FiUser } from "react-icons/fi";
 import { LiaLanguageSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { USUARIOS_ME_ENDPOINT } from "../../../endpoints";
 
 function Navigation() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -21,7 +22,7 @@ function Navigation() {
     const getUser = async () => {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:8000/api/me", {
+      const res = await fetch(USUARIOS_ME_ENDPOINT,{
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
