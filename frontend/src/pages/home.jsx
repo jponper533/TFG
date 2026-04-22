@@ -105,7 +105,7 @@ function Home() {
 
                             <div className={styles.divExamen}>
                                 < NavLink className={styles.enlaceExamen}
-                                    to="/usuarios-admin"
+                                    to="/trimestres"
                                 >
                                     <span>Ver Examenes</span>
                                 </NavLink>
