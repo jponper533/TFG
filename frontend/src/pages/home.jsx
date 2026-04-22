@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./home.module.css";
 import MyCalendar from "../components/calendar.jsx";
 import { NOTICIAS_INDEX_ENDPOINT, USUARIOS_ME_ENDPOINT } from '../../endpoints.js';
+import { NavLink } from "react-router-dom";
 
 function Home() {
     const [noticias, setNoticias] = useState([]);
@@ -27,34 +28,43 @@ function Home() {
     }, [page]);
 
     useEffect(() => {
-    const getUser = async () => {
-      const token = localStorage.getItem("token");
+        const getUser = async () => {
+            const token = localStorage.getItem("token");
 
-      const res = await fetch(`${USUARIOS_ME_ENDPOINT}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
-      });
+            const res = await fetch(`${USUARIOS_ME_ENDPOINT}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
 
-      const data = await res.json();
-      setUser(data);
-    };
+            const data = await res.json();
+            setUser(data);
+        };
 
-    getUser();
-  }, []);
+        getUser();
+    }, []);
 
-    
+
     return (
-        
+
         <main className={styles.main}>
-            
+
             <h1>Bienvenido {users?.name || "Usuario"}</h1>
             <h2>Calendario</h2>
             <div className={styles.calendario}>
 
                 <MyCalendar />
             </div>
+            {(users?.role_id === 1) && (
+                <div className={styles.divAnuncio}>
+                    < NavLink className={styles.enlaceAnuncio}
+                        to="/create-anuncio"
+                    >
+                        <span>Crear anuncio</span>
+                    </NavLink>
+                </div>
+            )}
             <h2 className={styles.title}>TABLÓN DE ANUNCIOS</h2>
             <div className={styles.tablonNoticias}>
 
@@ -91,6 +101,14 @@ function Home() {
                                 >
                                     Siguiente →
                                 </button>
+                            </div>
+
+                            <div className={styles.divExamen}>
+                                < NavLink className={styles.enlaceExamen}
+                                    to="/usuarios-admin"
+                                >
+                                    <span>Ver Examenes</span>
+                                </NavLink>
                             </div>
                         </>
                     )}

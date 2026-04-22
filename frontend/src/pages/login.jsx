@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import styles from "./login.module.css";
 import { LOGIN_ENDPOINT } from '../../endpoints.js';
 
@@ -8,6 +9,8 @@ function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -15,13 +18,13 @@ function Login() {
     }
   }, [navigate]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // 3. Cambiamos 'e' por 'data' y quitamos el e.preventDefault()
+  const onSubmit = async (data) => {
     setLoading(true);
     setError(null);
 
-    const name = e.target.name.value;
-    const password = e.target.password.value;
+    // react-hook-form ya nos entrega los datos limpios en un objeto
+    const { name, password } = data;
 
     try {
       const resultado = await fetch(`${LOGIN_ENDPOINT}`, {
@@ -32,10 +35,10 @@ function Login() {
 
       if (!resultado.ok) throw new Error("Usuario o contraseña incorrectos");
 
-      const data = await resultado.json();
-      console.log("Login exitoso:", data);
+      const responseData = await resultado.json();
+      console.log("Login exitoso:", responseData);
 
-      localStorage.setItem("token", data.token);
+      localStorage.setItem("token", responseData.token);
       navigate("/home");
     } catch (err) {
       setError(err.message);
@@ -47,23 +50,26 @@ function Login() {
   return (
     <main className={styles.main}>
       <h1 className={styles.titulo}>INICIO DE SESIÓN</h1>
-      <form className={styles.formulario} onSubmit={handleSubmit}>
+      {/* 4. Envolvemos nuestra función con el handleSubmit del hook */}
+      <form className={styles.formulario} onSubmit={handleSubmit(onSubmit)}>
         <input
           className={styles.input}
           type="text"
-          name="name"
           placeholder="Usuario"
-          required
+          /* 5. Registramos los inputs y sus validaciones básicas */
+          {...register("name", { required: true })}
         />
+        {errors.name && <p>Nombre obligatorio</p>}
         <input
           className={styles.input}
           type="password"
-          name="password"
           placeholder="Contraseña"
-          required
-        />
+          {...register("password", { required: true })}
 
+        />
+        {errors.password && <p>Contraseña obligatoria</p>}
         {error && <p className={styles.error}>{error}</p>}
+
         <button className={styles.boton} type="submit" disabled={loading}>
           {loading ? "Cargando..." : "Iniciar Sesión"}
         </button>
@@ -84,11 +90,3 @@ function Login() {
 }
 
 export default Login;
-
-
-//    useEffect(() => {
-//         fetch("http://localhost:8000/api/usuariosApi")
-//             .then((response) => response.json())
-//             .then((json) => setUsuarios(json))
-//             .catch((error) => console.error(error));
-//     }, []);

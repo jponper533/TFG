@@ -12,6 +12,7 @@ import PerfilUsuario from "./pages/perfilUsuario.jsx";
 import UsuariosAdmin from "./pages/usuariosAdmin.jsx";
 import UsuariosEdit from "./pages/usuariosEdit.jsx";
 import CrearUsuario from "./pages/usuariosCreate.jsx";
+import CreateAnuncio from "./pages/createAnuncio.jsx";
 
 
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="usuarios-admin" element={<UsuariosAdmin />} />
         <Route path="usuarios-edit/:id" element={<UsuariosEdit />} />
         <Route path="usuarios-create" element={<CrearUsuario />} />
+        <Route path="create-anuncio" element={<CreateAnuncio />} />
       </Route>
     </Routes>
   );

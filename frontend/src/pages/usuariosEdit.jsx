@@ -1,4 +1,4 @@
-import { USUARIOS_SHOW_ENDPOINT, USUARIOS_UPDATE_ENDPOINT } from '../../endpoints.js';
+import { USUARIOS_SHOW_ENDPOINT, USUARIOS_UPDATE_ADMIN_ENDPOINT } from '../../endpoints.js';
 import styles from './login.module.css';
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -55,7 +55,7 @@ function UsuariosEdit() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch(`${USUARIOS_UPDATE_ENDPOINT}/${id}`, {
+      const res = await fetch(`${USUARIOS_UPDATE_ADMIN_ENDPOINT}/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

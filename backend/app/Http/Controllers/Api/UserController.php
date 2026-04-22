@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Rol;
 use App\Http\Requests\UpdateUsuariosRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UpdateUsuariosAdminRequest;
 
 class UserController extends Controller
 {
@@ -52,6 +53,30 @@ class UserController extends Controller
     {
         /** @var \App\Models\User $usuario */
         $usuario = Auth::user();
+
+        if (!$usuario) {
+            return response()->json(['message' => 'No autenticado'], 401);
+        }
+
+        $validate = $request->validated();
+
+        if (!empty($validate['password'])) {
+            $validate['password'] = bcrypt($validate['password']);
+        } else {
+            unset($validate['password']);
+        }
+
+        $usuario->update($validate);
+
+        return response()->json([
+            'message' => 'Usuario actualizado correctamente'
+        ], 200);
+    }
+
+    public function updateAdmin(UpdateUsuariosAdminRequest $request, $id)
+    {
+        /** @var \App\Models\User $usuario */
+        $usuario = User::find($id);
 
         if (!$usuario) {
             return response()->json(['message' => 'No autenticado'], 401);

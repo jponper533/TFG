@@ -3,10 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Enums\RoleSlug;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateUsuariosRequest extends FormRequest
+class UpdateUsuariosAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,10 +31,14 @@ class UpdateUsuariosRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->route('id'); // Obtener el ID del usuario desde la ruta
+
         return [
-            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'email' => 'required|email|unique:users,email,' . $userId,
+
             'password' => 'nullable|string|min:4',
-            'telefono' => 'nullable|string',
+
+            'telefono' => 'nullable|string|max:20',
         ];
     }
 
@@ -43,9 +46,8 @@ class UpdateUsuariosRequest extends FormRequest
     {
         return [
             'email.required' => 'El campo email es obligatorio.',
-            'email.email' => 'El campo email debe ser una dirección de correo electrónico válida.',
-            'password.min' => 'La contraseña debe tener al menos 4 caracteres.',
-            'telefono.required' => 'El campo teléfono es obligatorio.',
+            'email.unique' => 'Este correo electrónico ya está registrado por otro usuario.',
+            'password.min' => 'Si vas a cambiar la contraseña, debe tener al menos 4 caracteres.',
         ];
     }
 }
