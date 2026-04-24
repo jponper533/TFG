@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styles from "./login.module.css";
 import { RESET_PASSWORD_ENDPOINT } from "../../endpoints";
+import { useNavigate } from "react-router-dom";
 
 export default function ResetPassword() {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
 
   const token = params.get("token");
   const email = params.get("email");
@@ -41,7 +43,7 @@ export default function ResetPassword() {
     } catch (error) {
       console.error(error);
       alert("Ocurrió un error al actualizar la contraseña");
-    }finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -69,6 +71,12 @@ export default function ResetPassword() {
           {loading ? "Cargando..." : "Cambiar contraseña"}
         </button>
       </form>
+      <button
+        className={styles.boton}
+        onClick={() => navigate("/")}
+      >
+        Volver
+      </button>
     </main>
   );
 }

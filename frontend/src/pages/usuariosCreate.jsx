@@ -157,7 +157,7 @@ function CrearUsuario() {
 
             <button
                 className={styles.boton}
-                onClick={() => navigate("/home")}
+                onClick={() => navigate("/usuarios-admin")}
             >
                 Volver
             </button>
