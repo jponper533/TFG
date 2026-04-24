@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./login.module.css";
+import { FORGOT_PASSWORD_ENDPOINT } from "../../endpoints";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ export default function ForgotPassword() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/forgot-password", {
+      const response = await fetch(FORGOT_PASSWORD_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import styles from "./login.module.css";
+import { RESET_PASSWORD_ENDPOINT } from "../../endpoints";
 
 export default function ResetPassword() {
   const [params] = useSearchParams();
@@ -17,7 +18,7 @@ export default function ResetPassword() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/reset-password", {
+      const response = await fetch(RESET_PASSWORD_ENDPOINT, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

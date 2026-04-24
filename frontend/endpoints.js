@@ -11,3 +11,5 @@ export const USUARIOS_STORE_ENDPOINT = `${API_BASE_URL}/userStore`;
 export const ROLES_ENDPOINT = `${API_BASE_URL}/roles`;
 export const TOKEN_VERIFY_ENDPOINT = `${API_BASE_URL}/verify-token`;
 export const NOTICIAS_STORE_ENDPOINT = `${API_BASE_URL}/noticiaStore`;
+export const FORGOT_PASSWORD_ENDPOINT = `${API_BASE_URL}/forgot-password`;
+export const RESET_PASSWORD_ENDPOINT = `${API_BASE_URL}/reset-password`;
