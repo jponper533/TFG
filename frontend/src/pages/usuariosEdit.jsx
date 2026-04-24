@@ -68,7 +68,7 @@ function UsuariosEdit() {
 
       await res.json();
 
-      navigate("/home");
+      navigate("/usuarios-admin");
 
     } catch (err) {
       setError(err.message);
