@@ -2,7 +2,7 @@
 ## Tematica
  - Gestoria de notas 
 ## Objetivos
- - Es una aplicacion que sirve para gestionar las notas de los alumnos
+ - Es una aplicación que sirve para gestionar las notas de los alumnos
 ## Funcionalidades
 - Roles
   - Admin: Podra hacer todo lo relacionado a los dos roles siguientes, borrar o poner asignaturas y poner noticias en el tablon de anuncios
