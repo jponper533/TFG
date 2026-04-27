@@ -54,3 +54,10 @@ input::placeholder {
 .boton:hover {
     background-color: #4d3b35;
 }
+
+.asignaturas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 20px;
+}

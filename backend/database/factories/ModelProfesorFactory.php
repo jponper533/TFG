@@ -23,8 +23,8 @@ class ModelProfesorFactory extends Factory
         $profesorRol = Rol::where('slug', RoleSlug::PROF)->first();
 
         return [
-            'user_id' => User::where("role_id", $profesorRol->id)->inRandomOrder()->first()->id,
-            'asignatura_id' => Asignatura::inRandomOrder()->first()->id,
+            // 'user_id' => User::where("role_id", $profesorRol->id)->inRandomOrder()->first()->id,
+            // 'asignatura_id' => Asignatura::inRandomOrder()->first()->id,
         ];
     }
 }

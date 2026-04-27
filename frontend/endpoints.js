@@ -13,3 +13,6 @@ export const TOKEN_VERIFY_ENDPOINT = `${API_BASE_URL}/verify-token`;
 export const NOTICIAS_STORE_ENDPOINT = `${API_BASE_URL}/noticiaStore`;
 export const FORGOT_PASSWORD_ENDPOINT = `${API_BASE_URL}/forgot-password`;
 export const RESET_PASSWORD_ENDPOINT = `${API_BASE_URL}/reset-password`;
+export const ASIGNATURAS_ENDPOINT = `${API_BASE_URL}/asignaturas`;
+export const MODULOS_ENDPOINT = `${API_BASE_URL}/modulos`;
+export const MODULOS_DELETE_ENDPOINT = `${API_BASE_URL}/modulos`;

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Api\NoticiasController;
+use App\Http\Controllers\Api\ModuloProfController;
 use Illuminate\Http\Request;
 
 Route::post('/login', [AuthController::class, 'login']);
@@ -23,6 +24,10 @@ Route::middleware('auth:sanctum')->get('/verify-token', function (Request $reque
     return $request->user();
 });
 Route::post('/noticiaStore', [NoticiasController::class, 'store']);
+Route::middleware('auth:sanctum')->get('/asignaturas', [ModuloProfController::class, 'asignaturas']);
+Route::middleware('auth:sanctum')->get('/modulos/{profesorId}', [ModuloProfController::class, 'modulosPorProfesor']);
+Route::middleware('auth:sanctum')->post('/modulos', [ModuloProfController::class, 'store']);
+Route::middleware('auth:sanctum')->delete('/modulos/{profesorId}/{asignaturaId}', [ModuloProfController::class, 'destroy']);
 
 
 // Route::post('/examen', [ExamenController::class, 'store']);

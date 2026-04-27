@@ -1,0 +1,75 @@
+.main {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #D9F2FF;
+}
+
+.titulo {
+    margin-bottom: 2rem;
+}
+
+.titulo h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.asignaturas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+}
+
+.asignaturas label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    padding: 1.2rem;
+    border-radius: 12px;
+
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+
+.asignaturas label:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.asignaturas input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #4f46e5;
+}
+
+.asignaturas label:has(input:checked) {
+    border: 1px solid #4f46e5;
+    background: #f5f7ff;
+}
+
+.boton {
+    padding: 0.5rem 1rem;
+    background-color: #715950;
+    color: #f3f2f2;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    max-width: 200px;
+}
+
+.boton:hover {
+    background-color: #4d3b35;
+}

@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { USUARIOS_INDEX_ENDPOINT, USUARIOS_DELETE_ENDPOINT } from '../../endpoints.js';
 import { MdEdit } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaBook } from "react-icons/fa";
 import navStyles from '../components/navigation/navigation.module.css';
+import { useParams } from 'react-router-dom'
 
 function UsuariosAdmin() {
     const [loading, setLoading] = useState(false);
@@ -87,17 +88,18 @@ function UsuariosAdmin() {
     };
 
     return (
+        
         <main className={styles.main}>
             <h1>USUARIOS</h1>
 
-<div className={styles.crearUsuario}>
-            <NavLink
-                to={`/usuarios-create`}
-                className={navStyles.iconButton}
-            >
-                Crear usuario 
-            </NavLink>
-</div>
+            <div className={styles.crearUsuario}>
+                <NavLink
+                    to={`/usuarios-create`}
+                    className={navStyles.iconButton}
+                >
+                    Crear usuario
+                </NavLink>
+            </div>
             <div className={styles.contorno}>
                 <div className={styles.card}>
                     {loading ? (
@@ -115,6 +117,15 @@ function UsuariosAdmin() {
                                         >
                                             <MdEdit size={20} color="blue" />
                                         </NavLink>
+
+                                        {user.role_id === 2 && (
+                                        <NavLink
+                                            to={`/modulo-profesor/${user.id}`}
+                                            className={navStyles.iconButton}
+                                        >
+                                            <FaBook size={20} color="green" />
+                                        </NavLink>
+                                        )}
 
                                         <button
                                             onClick={() => deleteUser(user.id)}

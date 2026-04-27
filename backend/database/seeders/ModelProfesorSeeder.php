@@ -13,6 +13,6 @@ class ModelProfesorSeeder extends Seeder
      */
     public function run(): void
     {
-        ModelProfesor::factory()->count(9)->create();
+        // ModelProfesor::factory()->count(9)->create();
     }
 }
