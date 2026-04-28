@@ -24,7 +24,7 @@
     align-items: center;
 
     width: 100%;
-    max-width: 40rem; /* 👈 controla lo “largos” que serán */
+    max-width: 40rem;
 }
 
 .input {
