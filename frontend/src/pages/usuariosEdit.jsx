@@ -13,6 +13,7 @@ function UsuariosEdit() {
 
   const [form, setForm] = useState({
     email: "",
+    name: "",
     telefono: "",
     password: ""
   });
@@ -36,7 +37,8 @@ function UsuariosEdit() {
         setForm({
           email: data.email || "",
           telefono: data.telefono || "",
-          password: ""
+          password: "",
+          name: data.name || ""
         });
 
       } catch (err) {
@@ -97,6 +99,18 @@ function UsuariosEdit() {
           }
         />
 
+        {/* NAME */}
+        <input
+          className={styles.input}
+          type="text"
+          name="name"
+          placeholder="Nombre"
+          value={form.name}
+          onChange={(e) =>
+            setForm({ ...form, name: e.target.value })
+          }
+        />
+
         {/* PASSWORD */}
         <input
           className={styles.input}
@@ -130,7 +144,7 @@ function UsuariosEdit() {
 
       <button
         className={styles.boton}
-        onClick={() => navigate("/home")}
+        onClick={() => navigate("/usuarios-admin")}
       >
         Volver
       </button>

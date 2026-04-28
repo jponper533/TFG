@@ -1,0 +1,98 @@
+.main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+    background-color: #D9F2FF;
+}
+
+.titulo {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.info {
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+.filtros {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 4rem;
+}
+
+@media (max-width: 600px) {
+    .filtros {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
+    .filtros {
+        grid-template-columns: 1fr;
+    }
+}
+
+.boton {
+    padding: 8px 14px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.boton:hover {
+    background-color: #2980b9;
+}
+
+.botonReset {
+    padding: 8px 14px;
+    border: none;
+    background-color: #95a5a6;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.botonReset:hover {
+    background-color: #7f8c8d;
+}
+
+.volver {
+    padding: 0.5rem 1rem;
+    background-color: #715950;
+    color: #f3f2f2;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    max-width: 200px;
+}
+
+.volver:hover {
+    background-color: #4d3b35;
+}
+
+.lista {
+    list-style: none;
+    padding: 0;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}

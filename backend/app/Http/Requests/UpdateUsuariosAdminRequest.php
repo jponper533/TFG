@@ -39,6 +39,8 @@ class UpdateUsuariosAdminRequest extends FormRequest
             'password' => 'nullable|string|min:4',
 
             'telefono' => 'nullable|string|max:20',
+
+            'name' => 'nullable|string|max:255',
         ];
     }
 
@@ -48,6 +50,7 @@ class UpdateUsuariosAdminRequest extends FormRequest
             'email.required' => 'El campo email es obligatorio.',
             'email.unique' => 'Este correo electrónico ya está registrado por otro usuario.',
             'password.min' => 'Si vas a cambiar la contraseña, debe tener al menos 4 caracteres.',
+            'name.max' => 'El nombre no puede tener más de 255 caracteres.',
         ];
     }
 }

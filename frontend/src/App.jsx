@@ -15,6 +15,7 @@ import CrearUsuario from "./pages/usuariosCreate.jsx";
 import CreateAnuncio from "./pages/createAnuncio.jsx";
 import Trimestres from "./pages/trimestres.jsx";
 import ModuloProfesor from "./pages/moduloProfesor.jsx";
+import Asignaturas from "./pages/asignaturas.jsx";
 
 
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="create-anuncio" element={<CreateAnuncio />} />
         <Route path="trimestres" element={<Trimestres />} />
         <Route path="modulo-profesor/:id" element={<ModuloProfesor />} />
+        <Route path="/asignaturas" element={<Asignaturas />} />
       </Route>
     </Routes>
   );

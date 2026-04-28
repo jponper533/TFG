@@ -2,9 +2,22 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
   padding: 2rem;
   background-color: #D9F2FF;
+}
+
+.contorno {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  
+  border-radius: 12px;
+  padding: 20px;
+  width: 900px;
+margin-top: 4rem;
 }
 
 .titulo {
@@ -12,4 +25,66 @@
   justify-content: center;
   font-size: 2.5rem;
   color: #333333;
+}
+
+
+.card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1000px;
+}
+
+.userCard {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 100px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    width: 250px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+}
+
+.userCard p {
+    margin-top: 10px;
+}
+
+.userCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.userCard strong {
+    font-size: 18px;
+    color: #222;
+}
+
+.userCard p:nth-child(2) {
+    font-size: 14px;
+    color: #555;
+}
+
+.userCard p:nth-child(3) {
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+}
+
+.volver {
+    padding: 0.5rem 1rem;
+    background-color: #715950;
+    color: #f3f2f2;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    max-width: 200px;
+}
+
+.volver:hover {
+    background-color: #4d3b35;
 }
