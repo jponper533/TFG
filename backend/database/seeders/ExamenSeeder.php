@@ -13,6 +13,6 @@ class ExamenSeeder extends Seeder
      */
     public function run(): void
     {
-        Examen::factory()->count(random_int(10, 20))->create();
+        Examen::factory()->count(random_int(100, 200))->create();
     }
 }

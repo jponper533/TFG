@@ -38,46 +38,44 @@ function Asignaturas() {
         fetchAsignaturas();
     }, []);
 
-    const handleAsignatura = (nombre) => {
+    const handleAsignatura = (id) => {
         const params = Object.fromEntries(searchParams.entries());
 
-        if (nombre) {
-            params.asignatura = nombre;
+        if (id) {
+            params.asignatura = id;
+            setSearchParams(params);
+            navigate(`/examenes?trimestre=${params.trimestre}&asignatura=${id}`);
         } else {
             delete params.asignatura;
         }
-
-        setSearchParams(params);
     };
 
-    const nombresUnicos = [...new Set(data.map(a => a.nombre_asignatura))];
+    const asignaturasUnicas = Array.from(
+        new Map(data.map(a => [a.id, a])).values()
+    );
 
     return (
         <main className={styles.main}>
             <h1 className={styles.titulo}>Asignaturas</h1>
 
-            <p className={styles.info}>
-                Trimestre seleccionado: {trimestre || "Ninguno"}
-            </p>
+            <button
+                className={styles.volver}
+                onClick={() => navigate("/trimestres")}
+            >
+                Volver
+            </button>
 
             <div className={styles.filtros}>
-                {nombresUnicos.map((nombre) => (
+                {asignaturasUnicas.map((a) => (
                     <button
-                        key={nombre}
+                        key={a.id}
                         className={styles.boton}
-                        onClick={() => handleAsignatura(nombre)}
+                        onClick={() => handleAsignatura(a.id)}
                     >
-                        {nombre}
+                        {a.nombre_asignatura}
                     </button>
                 ))}
             </div>
-
-                  <button
-                    className={styles.volver}
-                    onClick={() => navigate("/trimestres")}
-                  >
-                    Volver
-                  </button>
         </main>
     );
 }

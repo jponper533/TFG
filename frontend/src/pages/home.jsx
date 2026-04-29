@@ -56,6 +56,8 @@ function Home() {
 
                 <MyCalendar />
             </div>
+
+            <h2 className={styles.title}>TABLÓN DE ANUNCIOS</h2>
             {(users?.role_id === 1) && (
                 <div className={styles.divAnuncio}>
                     < NavLink className={styles.enlaceAnuncio}
@@ -65,7 +67,6 @@ function Home() {
                     </NavLink>
                 </div>
             )}
-            <h2 className={styles.title}>TABLÓN DE ANUNCIOS</h2>
             <div className={styles.tablonNoticias}>
 
                 <div className={styles.card}>

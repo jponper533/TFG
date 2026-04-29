@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/asignaturas', [ModuloProfController::cl
 Route::middleware('auth:sanctum')->get('/modulos/{profesorId}', [ModuloProfController::class, 'modulosPorProfesor']);
 Route::middleware('auth:sanctum')->post('/modulos', [ModuloProfController::class, 'store']);
 Route::middleware('auth:sanctum')->delete('/modulos/{profesorId}/{asignaturaId}', [ModuloProfController::class, 'destroy']);
+Route::middleware('auth:sanctum')->get('/examenes', [ExamenController::class, 'filtroExamenes']);
 
 
 // Route::post('/examen', [ExamenController::class, 'store']);

@@ -16,6 +16,7 @@ import CreateAnuncio from "./pages/createAnuncio.jsx";
 import Trimestres from "./pages/trimestres.jsx";
 import ModuloProfesor from "./pages/moduloProfesor.jsx";
 import Asignaturas from "./pages/asignaturas.jsx";
+import Examenes from "./pages/Examenes.jsx";
 
 
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="trimestres" element={<Trimestres />} />
         <Route path="modulo-profesor/:id" element={<ModuloProfesor />} />
         <Route path="/asignaturas" element={<Asignaturas />} />
+        <Route path="/examenes" element={<Examenes />} />
       </Route>
     </Routes>
   );

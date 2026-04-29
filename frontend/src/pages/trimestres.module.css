@@ -16,8 +16,8 @@
   
   border-radius: 12px;
   padding: 20px;
-  width: 900px;
-margin-top: 4rem;
+  width: 60%;
+  margin-top: 4rem;
 }
 
 .titulo {
@@ -47,6 +47,7 @@ margin-top: 4rem;
     width: 250px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     text-align: center;
+    margin-top: 20px
 }
 
 .userCard p {

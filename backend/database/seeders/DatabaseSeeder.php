@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             AsignaturaSeeder::class,
             NoticiaSeeder::class,
             ModelProfesorSeeder::class,
+            ExamenSeeder::class,
         ]);
     }
 }

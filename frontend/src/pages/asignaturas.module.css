@@ -41,13 +41,14 @@
 }
 
 .boton {
-    padding: 8px 14px;
+    padding: 20px 14px;
     border: none;
     background-color: #3498db;
     color: white;
     border-radius: 6px;
     cursor: pointer;
     transition: 0.2s;
+
 }
 
 .boton:hover {

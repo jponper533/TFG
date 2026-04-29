@@ -21,11 +21,14 @@ class ExamenFactory extends Factory
     public function definition(): array
     {
         $alumnoRol = Rol::where('slug', RoleSlug::ALUM)->first();
+        $profesorRol = Rol::where('slug', RoleSlug::PROF)->first();
 
         return [
-            'user_id' => User::where("role_id", $alumnoRol->id)->inRandomOrder()->first()->id,
+            'alumno_id' => User::where("role_id", $alumnoRol->id)->inRandomOrder()->first()->id,
             'asignatura_id' => Asignatura::inRandomOrder()->first()->id,
-            'nota' => fake()->numberBetween(1, 10)
+            'nota' => fake()->numberBetween(1, 10),
+            'user_id' => User::where("role_id", $profesorRol->id)->inRandomOrder()->first()->id,
+            'id_trimestre' => fake()->numberBetween(1, 3),
         ];
     }
 }
