@@ -4,9 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Examen extends Model
 {
+
+    use SoftDeletes;
+
+
     use HasFactory;
     protected $table = 'examenes';
     protected $fillable = [
@@ -38,4 +43,13 @@ class Examen extends Model
         return $this->hasmany(Conversacion::class, 'id_examen');
     }
 
+    public function profesor()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function alumno()
+    {
+        return $this->belongsTo(User::class, 'alumno_id');
+    }
 }

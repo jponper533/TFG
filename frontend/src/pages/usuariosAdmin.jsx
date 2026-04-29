@@ -139,7 +139,7 @@ function UsuariosAdmin() {
                                 </div>
 
                                 <p>{user.email}</p>
-                                <p>{user.created_at || "Sin fecha de creación"}</p>
+                                <p>Creacion: {user.created_at.split("T")[0] || "Sin fecha de creación"}</p>
                             </div>
                         ))
                     )}

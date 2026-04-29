@@ -8,10 +8,7 @@ function Asignaturas() {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-
-    const trimestre = searchParams.get("trimestre");
-    const asignatura = searchParams.get("asignatura");
-
+    
     const [data, setData] = useState([]);
 
     const token = localStorage.getItem('token')

@@ -17,3 +17,4 @@ export const ASIGNATURAS_ENDPOINT = `${API_BASE_URL}/asignaturas`;
 export const MODULOS_ENDPOINT = `${API_BASE_URL}/modulos`;
 export const MODULOS_DELETE_ENDPOINT = `${API_BASE_URL}/modulos`;
 export const FILTROS_EXAMENES_ENDPOINT = `${API_BASE_URL}/examenes`;
+export const EXAMENES_DELETE_ENDPOINT = `${API_BASE_URL}/examenes`;

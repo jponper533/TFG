@@ -19,51 +19,17 @@ class ExamenController extends Controller
         $this->examenService = $examen;
     }
 
-    public function store(StoreExamenRequest $request)
-    {
-        // Validación
-        $validate = $request->validated();
-
-        // Crea el examen con los datos validados
-        $this->examenService->crearExamen($validate);
-
-        //return Proyecto::find($id)->toJson();
-        return response()->json(['message' => 'Examen creado correctamente'], 201);
-    }
-
-    public function show($id)
-    {
-        $examen = Examen::with('asignatura')->with('user')->find($id);
-        if (!$examen) {
-            return response()->json(['message' => 'Examen no encontrado'], 404);
-        }
-        return response()->json($examen, 200);
-    }
-
     public function destroy($id)
     {
-        $examen = Examen::find($id);
-        if (!$examen) {
-            return response()->json(['message' => 'Examen no encontrado'], 404);
-        }
+        $examen = Examen::findOrFail($id);
         $examen->delete();
-        return response()->json(['message' => 'Examen eliminado correctamente'], 200);
-    }
 
-    public function update(UpdateExamenRequest $request, $id)
-    {
-        $examen = Examen::find($id);
-        if (!$examen) {
-            return response()->json(['message' => 'Examen no encontrado'], 404);
-        }
-        $validate = $request->validated();
-        $this->examenService->actualizarExamen($id, $validate);
-        return response()->json(['message' => 'Examen actualizado correctamente'], 200);
+        return response()->json(['message' => 'Examen eliminado']);
     }
 
     public function filtroExamenes(Request $request)
     {
-        $query = Examen::with('asignatura');
+        $query = Examen::with(['asignatura', 'profesor', 'alumno']);
 
         if ($request->trimestre) {
             $query->where('id_trimestre', $request->trimestre);
