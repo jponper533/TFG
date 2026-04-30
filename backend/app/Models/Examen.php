@@ -19,14 +19,9 @@ class Examen extends Model
         'alumno_id',
         'asignatura_id',
         'nota',
-        'profesor_id',
+        'user_id',
         'id_trimestre'
     ];
-
-    public function users()
-    {
-        return $this->belongsTo(User::class, 'alumno_id');
-    }
 
     public function trimestre()
     {
@@ -40,7 +35,7 @@ class Examen extends Model
 
     public function conversacion()
     {
-        return $this->hasmany(Conversacion::class, 'id_examen');
+        return $this->hasMany(Conversacion::class, 'id_examen');
     }
 
     public function profesor()

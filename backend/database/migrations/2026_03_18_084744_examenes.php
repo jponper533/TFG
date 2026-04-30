@@ -12,14 +12,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::create('examenes', function(Blueprint $table) {
+        Schema::create('examenes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('alumno_id')->references('id')->on('users');
-            $table->foreignId('asignatura_id')->nullable()->constrained();
-            $table->integer('nota');
+
+            $table->foreignId('alumno_id')
+                ->constrained('users');
+
+            $table->foreignId('user_id')
+                ->constrained('users');
+
+            $table->foreignId('asignatura_id')
+                ->constrained();
+
+            $table->foreignId('id_trimestre')
+                ->constrained('trimestres');
+
+            $table->decimal('nota', 4, 2);
+
             $table->timestamps();
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('id_trimestre')->references('id')->on('trimestres');
             $table->softDeletes();
         });
     }

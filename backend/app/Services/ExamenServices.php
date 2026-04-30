@@ -6,7 +6,7 @@ use App\Models\Examen;
 
 class ExamenServices {
 
-    public function crearExamen(array $datos): Examen 
+    public function createExamen(array $datos): Examen 
     {
         return Examen::create($datos);
     }

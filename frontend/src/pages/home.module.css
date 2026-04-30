@@ -7,6 +7,7 @@
     background-color: #D9F2FF;
     min-height: 100vh;
     align-items: center;
+
 }
 
 .tablonNoticias {
@@ -144,6 +145,7 @@
     color: #030303;
     margin-bottom: 15px;
     margin-top: 20px;
+    text-align: center;
 }
 
 h1 {

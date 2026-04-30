@@ -1,7 +1,7 @@
 import { useSearchParams, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from './examenes.module.css';
-import { EXAMENES_DELETE_ENDPOINT, FILTROS_EXAMENES_ENDPOINT } from "../../endpoints";
+import { EXAMENES_DELETE_ENDPOINT, FILTROS_EXAMENES_ENDPOINT, USUARIOS_ME_ENDPOINT } from "../../endpoints";
 import navStyles from '../components/navigation/navigation.module.css';
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
@@ -18,8 +18,27 @@ function Examenes() {
     const [examenes, setExamenes] = useState([]);
     const [loading, setLoading] = useState(false);
     const [deletingId, setDeletingId] = useState(null);
+    const [users, setUser] = useState(null);
 
     const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        const getUser = async () => {
+            const token = localStorage.getItem("token");
+
+            const res = await fetch(`${USUARIOS_ME_ENDPOINT}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            const data = await res.json();
+            setUser(data);
+        };
+
+        getUser();
+    }, []);
 
     useEffect(() => {
         const fetchExamenes = async () => {
@@ -40,7 +59,8 @@ function Examenes() {
                 if (!res.ok) throw new Error("Error al cargar exámenes");
 
                 const data = await res.json();
-                setExamenes(data);
+                
+                setExamenes(data)
 
             } catch (err) {
                 console.error(err);
@@ -80,13 +100,25 @@ function Examenes() {
             <div className={styles.titulo}>
                 <h4>Exámenes</h4>
             </div>
+            <div className={styles.botones}>
+                {((users?.role_id === 1 || users?.role_id === 2)) && (
+                    <div className={styles.crearUsuario}>
+                        <NavLink
+                            to={`/examenes-create`}
+                            className={navStyles.iconButton}
+                        >
+                            Crear examen
+                        </NavLink>
+                    </div>
+                )}
 
-            <button
-                className={styles.volver}
-                onClick={() => navigate("/asignaturas?trimestre=" + trimestre)}
-            >
-                Volver
-            </button>
+                <button
+                    className={styles.volver}
+                    onClick={() => navigate("/asignaturas?trimestre=" + trimestre)}
+                >
+                    Volver
+                </button>
+            </div>
 
             {loading ? (
                 <h2>Cargando...</h2>
@@ -100,24 +132,25 @@ function Examenes() {
                                     <strong>
                                         {ex.asignatura?.nombre_asignatura}
                                     </strong>
+                                    {((users?.role_id === 1 || users?.role_id === 2)) && (
+                                        <div className={styles.botones}>
+                                            <NavLink
+                                                to={`/examenes-edit/${ex.id}?trimestre=${trimestre}&asignatura=${asignatura}`}
+                                                className={navStyles.iconButton}
+                                            >
+                                                <MdEdit size={20} color="blue" />
+                                            </NavLink>
 
-                                    <div className={styles.botones}>
-                                        <NavLink
-                                            to={`/examenes-edit/${ex.id}`}
-                                            className={navStyles.iconButton}
-                                        >
-                                            <MdEdit size={20} color="blue" />
-                                        </NavLink>
-
-                                        <button
-                                            onClick={() => deleteExamen(ex.id)}
-                                            className={navStyles.iconButton}
-                                            disabled={deletingId === ex.id}
-                                            style={{ opacity: deletingId === ex.id ? 0.5 : 1 }}
-                                        >
-                                            <FaTrash size={20} color="red" />
-                                        </button>
-                                    </div>
+                                            <button
+                                                onClick={() => deleteExamen(ex.id)}
+                                                className={navStyles.iconButton}
+                                                disabled={deletingId === ex.id}
+                                                style={{ opacity: deletingId === ex.id ? 0.5 : 1 }}
+                                            >
+                                                <FaTrash size={20} color="red" />
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <p>Alumno: {ex.alumno?.name}</p>

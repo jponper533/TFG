@@ -45,7 +45,7 @@ function Home() {
         getUser();
     }, []);
 
-
+console.log(users);
     return (
 
         <main className={styles.main}>

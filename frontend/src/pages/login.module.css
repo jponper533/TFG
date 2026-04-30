@@ -7,6 +7,7 @@
     background-color: #D9F2FF;
     min-height: 100vh;
     align-items: center;
+    text-align: center;
 }
 
 .titulo {
@@ -66,4 +67,19 @@ input::placeholder {
     flex-direction: column;
     gap: 0.5rem;
     margin-top: 20px;
+}
+
+.volver {
+    padding: 0.5rem 1rem;
+    background-color: #715950;
+    color: #f3f2f2;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    max-width: 200px;
+}
+
+.volver:hover {
+    background-color: #4d3b35;
 }
