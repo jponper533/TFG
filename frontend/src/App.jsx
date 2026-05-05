@@ -39,7 +39,7 @@ function App() {
         <Route path="asignaturas" element={<Asignaturas />} />
         <Route path="examenes" element={<Examenes />} />
 
-        <Route element={<ProtectedRouteRol roles={[1]} />}>
+        <Route element={<ProtectedRouteRol roles={[ 1 ]} />}>
           <Route path="usuarios-admin" element={<UsuariosAdmin />} />
           <Route path="usuarios-edit/:id" element={<UsuariosEdit />} />
           <Route path="usuarios-create" element={<CrearUsuario />} />
