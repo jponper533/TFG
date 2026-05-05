@@ -13,17 +13,17 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->put('/userUpdate', [UserController::class, 'update']);
 Route::middleware('auth:sanctum')->put('/userUpdate/{id}', [UserController::class, 'update']);
-Route::middleware('auth:sanctum')->put('/userUpdateAdmin/{id}', [UserController::class, 'updateAdmin']);
+Route::middleware(['auth:sanctum', 'role:admin'])->put('/userUpdateAdmin/{id}', [UserController::class, 'updateAdmin']);
 Route::middleware('auth:sanctum')->get('/me', [UserController::class, 'me']);
-Route::middleware('auth:sanctum')->get('/userIndex', [UserController::class, 'index']);
+Route::middleware(['auth:sanctum', 'role:admin'])->get('/userIndex', [UserController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/userShow/{id}', [UserController::class, 'show']);
-Route::middleware('auth:sanctum')->delete('/userDelete/{id}', [UserController::class, 'delete']);
-Route::post('/userStore', [UserController::class, 'store']);
+Route::middleware(['auth:sanctum', 'role:admin'])->delete('/userDelete/{id}', [UserController::class, 'delete']);
+Route::middleware(['auth:sanctum', 'role:admin'])->post('/userStore', [UserController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/roles', [UserController::class, 'roles']);
 Route::middleware('auth:sanctum')->get('/verify-token', function (Request $request) {
     return $request->user();
 });
-Route::post('/noticiaStore', [NoticiasController::class, 'store']);
+Route::middleware(['auth:sanctum', 'role:admin'])->post('/noticiaStore', [NoticiasController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/asignaturas', [ModuloProfController::class, 'asignaturas']);
 Route::middleware('auth:sanctum')->get('/modulos/{profesorId}', [ModuloProfController::class, 'modulosPorProfesor']);
 Route::middleware('auth:sanctum')->post('/modulos', [ModuloProfController::class, 'store']);

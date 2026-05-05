@@ -5,6 +5,7 @@ import SobreNosotros from "./pages/sobre-nosotros.jsx";
 import Contactos from "./pages/contactos.jsx";
 import Login from "./pages/login.jsx";
 import ProtectedRoute from "./components/rutaProtegida.jsx";
+import ProtectedRouteRol from "./components/rutaProtegidaRol.jsx";
 import ForgotPassword from "./pages/forgotpassword.jsx";
 import ResetPassword from "./pages/resetpassword.jsx";
 import Home from "./pages/home.jsx";
@@ -20,8 +21,6 @@ import Examenes from "./pages/Examenes.jsx";
 import CrearExamen from "./pages/examenCreate.jsx";
 import ExamenEdit from "./pages/examenesEdit.jsx";
 
-
-
 function App() {
   return (
     <Routes>
@@ -32,20 +31,26 @@ function App() {
 
       {/* Rutas protegidas */}
       <Route path="/" element={<ProtectedRoute><BigLayout /></ProtectedRoute>}>
-        <Route path="home" index element={<Home />} />
+        <Route path="home" element={<Home />} />
         <Route path="sobre-nosotros" element={<SobreNosotros />} />
         <Route path="contactos" element={<Contactos />} />
         <Route path="perfil-usuario" element={<PerfilUsuario />} />
-        <Route path="usuarios-admin" element={<UsuariosAdmin />} />
-        <Route path="usuarios-edit/:id" element={<UsuariosEdit />} />
-        <Route path="usuarios-create" element={<CrearUsuario />} />
-        <Route path="create-anuncio" element={<CreateAnuncio />} />
         <Route path="trimestres" element={<Trimestres />} />
-        <Route path="modulo-profesor/:id" element={<ModuloProfesor />} />
         <Route path="asignaturas" element={<Asignaturas />} />
         <Route path="examenes" element={<Examenes />} />
-        <Route path="examenes-create" element={<CrearExamen />} />
-        <Route path="examenes-edit/:id" element={<ExamenEdit />} />
+
+        <Route element={<ProtectedRouteRol roles={[1]} />}>
+          <Route path="usuarios-admin" element={<UsuariosAdmin />} />
+          <Route path="usuarios-edit/:id" element={<UsuariosEdit />} />
+          <Route path="usuarios-create" element={<CrearUsuario />} />
+          <Route path="create-anuncio" element={<CreateAnuncio />} />
+          <Route path="modulo-profesor/:id" element={<ModuloProfesor />} />
+        </Route>
+
+        <Route element={<ProtectedRouteRol roles={[1, 2]} />}>
+          <Route path="examenes-create" element={<CrearExamen />} />
+          <Route path="examenes-edit/:id" element={<ExamenEdit />} />
+        </Route>
       </Route>
 
     </Routes>
