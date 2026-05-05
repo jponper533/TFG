@@ -7,6 +7,7 @@ use App\Http\Requests\StoreExamenRequest;
 use App\Models\Examen;
 use App\Http\Requests\UpdateExamenRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExamenController extends Controller
 {
@@ -19,36 +20,30 @@ class ExamenController extends Controller
         return response()->json(['message' => 'Examen eliminado']);
     }
 
-    public function filtroExamenes(Request $request)
-    {
-        $query = Examen::with(['asignatura', 'profesor', 'alumno']);
+public function filtroExamenes(Request $request)
+{
+    $user = Auth::user();
 
-        if ($request->trimestre) {
-            $query->where('id_trimestre', $request->trimestre);
-        }
+    $query = Examen::with(['asignatura', 'profesor', 'alumno']);
 
-        if ($request->asignatura) {
-            $query->where('asignatura_id', $request->asignatura);
-        }
-
-        return response()->json($query->get());
+    if ($request->trimestre) {
+        $query->where('id_trimestre', $request->trimestre);
     }
 
-    public function filtroExamenesAlumno(Request $request, $alumnoId)
-    {
-        $query = Examen::with(['asignatura', 'profesor', 'alumno'])
-            ->where('user_alum_id', $alumnoId);
-
-        if ($request->trimestre) {
-            $query->where('id_trimestre', $request->trimestre);
-        }
-
-        if ($request->asignatura) {
-            $query->where('asignatura_id', $request->asignatura);
-        }
-
-        return response()->json($query->get());
+    if ($request->asignatura) {
+        $query->where('asignatura_id', $request->asignatura);
     }
+
+    if ($user->role_id == 3) {
+        // Alumno → solo sus exámenes
+        $query->where('alumno_id', $user->id);
+    } else if ($user->role_id == 2) {
+        // Profesor → solo sus exámenes
+        $query->where('user_id', $user->id);
+    }
+
+    return response()->json($query->get());
+}
 
     public function store(StoreExamenRequest $request)
     {
