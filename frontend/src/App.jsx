@@ -39,7 +39,7 @@ function App() {
         <Route path="asignaturas" element={<Asignaturas />} />
         <Route path="examenes" element={<Examenes />} />
 
-        <Route element={<ProtectedRouteRol roles={[ 1 ]} />}>
+        <Route element={<ProtectedRouteRol roles={[1]} />}>
           <Route path="usuarios-admin" element={<UsuariosAdmin />} />
           <Route path="usuarios-edit/:id" element={<UsuariosEdit />} />
           <Route path="usuarios-create" element={<CrearUsuario />} />
@@ -47,7 +47,7 @@ function App() {
           <Route path="modulo-profesor/:id" element={<ModuloProfesor />} />
         </Route>
 
-        <Route element={<ProtectedRouteRol roles={[1, 2]} />}>
+        <Route element={<ProtectedRouteRol roles={[1, 2 ]} />}>
           <Route path="examenes-create" element={<CrearExamen />} />
           <Route path="examenes-edit/:id" element={<ExamenEdit />} />
         </Route>
