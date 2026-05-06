@@ -15,7 +15,7 @@ Route::middleware('auth:sanctum')->put('/userUpdate', [UserController::class, 'u
 Route::middleware('auth:sanctum')->put('/userUpdate/{id}', [UserController::class, 'update']);
 Route::middleware(['auth:sanctum', 'role:admin'])->put('/userUpdateAdmin/{id}', [UserController::class, 'updateAdmin']);
 Route::middleware('auth:sanctum')->get('/me', [UserController::class, 'me']);
-Route::middleware(['auth:sanctum', 'role:admin'])->get('/userIndex', [UserController::class, 'index']);
+Route::middleware(['auth:sanctum', 'role:admin, profesor'])->get('/userIndex', [UserController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/userShow/{id}', [UserController::class, 'show']);
 Route::middleware(['auth:sanctum', 'role:admin'])->delete('/userDelete/{id}', [UserController::class, 'delete']);
 Route::middleware(['auth:sanctum', 'role:admin'])->post('/userStore', [UserController::class, 'store']);
