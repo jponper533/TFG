@@ -47,7 +47,7 @@ function App() {
           <Route path="modulo-profesor/:id" element={<ModuloProfesor />} />
         </Route>
 
-        <Route element={<ProtectedRouteRol roles={[ 1, 2]} />} >
+        <Route element={<ProtectedRouteRol roles={[ 1, 2 ]} />} >
           <Route path="examenes-create" element={<CrearExamen />} />
           <Route path="examenes-edit/:id" element={<ExamenEdit />} />
         </Route> 
