@@ -14,18 +14,18 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-public function handle(Request $request, Closure $next, ...$roles)
-{
-    $user = Auth::user();
+    public function handle(Request $request, Closure $next, ...$roles)
+    {
+        $user = Auth::user();
 
-    if (!$user || !$user->rol) {
-        abort(403);
+        if (!$user || !$user->rol) {
+            abort(403);
+        }
+
+        if (!in_array($user->rol->slug->value, $roles)) {
+            abort(403);
+        }
+
+        return $next($request);
     }
-
-    if (!in_array($user->rol->slug->value, $roles)) {
-        abort(403);
-    }
-
-    return $next($request);
-}
 }

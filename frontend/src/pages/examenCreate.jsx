@@ -66,8 +66,8 @@ function CrearExamen() {
 
     }, []);
 
-    const profesores = usuarios.filter(u => u.role_id !== 3);
-    const alumnos = usuarios.filter(u => u.role_id === 3);
+const profesores = usuarios.filter(u => u.role_id == 2);
+const alumnos = usuarios.filter(u => u.role_id == 3);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

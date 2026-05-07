@@ -8,7 +8,7 @@ const ProtectedRouteRol = ({ roles = [] }) => {
     return <Navigate to="/" />;
   }
 
-  const role = user?.role_id;
+  const role = Number(user?.role_id);
 
   if (roles.length && !roles.includes(role)) {
     return <Navigate to="/home" />;
