@@ -1,4 +1,8 @@
 # PASOS CADA VEZ QUE COPIE BACKEND
+```
+sudo chmod -R 775 /var/www/backend
+sudo chown -R $USER:$USER /var/www/backend
+```
  ## ARREGLAR MENSAJERIA DE RESETEAR CONTRASEÑA
   - en config/app.php pegar lo siguiente -> 
   ```
