@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Asignatura;
 use App\Models\ModelProfesor;
+use App\Models\User;
 
 class ModuloProfController extends Controller
 {
@@ -14,13 +15,27 @@ class ModuloProfController extends Controller
         return response()->json(Asignatura::all());
     }
 
-    public function modulosPorProfesor($profesorId)
-    {
-        $modulos = ModelProfesor::where('user_id', $profesorId)->get();
+public function modulosPorProfesor($profesorId)
+{
+
+    $user = User::find($profesorId);
+
+    if (!$user) {
+        return response()->json([], 404);
+    }
+
+    if ($user->role_id == 1) {
+        $modulos = Asignatura::all();
 
         return response()->json($modulos);
     }
 
+    $modulos = ModelProfesor::with('asignatura')
+        ->where('user_id', $profesorId)
+        ->get();
+
+    return response()->json($modulos);
+}
     public function store(Request $request)
     {
         $request->validate([

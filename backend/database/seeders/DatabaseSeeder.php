@@ -27,9 +27,9 @@ class DatabaseSeeder extends Seeder
             TrimestreSeeder::class,
             UserSeeder::class,
             AsignaturaSeeder::class,
-            NoticiaSeeder::class,
-            ModelProfesorSeeder::class,
-            ExamenSeeder::class,
+            // NoticiaSeeder::class,
+            // ModelProfesorSeeder::class,
+            // ExamenSeeder::class,
         ]);
     }
 }

@@ -45,7 +45,7 @@ function Home() {
         getUser();
     }, []);
 
-console.log(users);
+    console.log(users);
     return (
 
         <main className={styles.main}>
@@ -72,6 +72,17 @@ console.log(users);
                 <div className={styles.card}>
                     {loading ? (
                         <p>Cargando...</p>
+                    ) : noticias.length === 0 ? (
+                        <>
+                            <h4>No hay ninguna noticia para mostrar</h4>
+                            <div className={styles.divExamen}>
+                                < NavLink className={styles.enlaceExamen}
+                                    to="/trimestres"
+                                >
+                                    <span>Ver Examenes</span>
+                                </NavLink>
+                            </div>
+                        </>
                     ) : (
                         <>
                             <ul>

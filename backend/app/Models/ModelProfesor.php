@@ -25,4 +25,9 @@ class ModelProfesor extends Model
     {
         return $this->hasMany(Conversacion::class, '');
     }
+
+    public function asignatura()
+    {
+        return $this->belongsTo(Asignatura::class, 'asignatura_id');
+    }
 }

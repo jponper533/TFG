@@ -59,7 +59,7 @@ function Examenes() {
                 if (!res.ok) throw new Error("Error al cargar exámenes");
 
                 const data = await res.json();
-                
+
                 setExamenes(data)
 
             } catch (err) {
@@ -122,6 +122,8 @@ function Examenes() {
 
             {loading ? (
                 <h2>Cargando...</h2>
+            ) : examenes.length === 0 ? (
+                <h4>No hay ningún examen para mostrar</h4>
             ) : (
                 <div className={styles.contorno}>
                     <div className={styles.card}>

@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import {
     USUARIOS_INDEX_ENDPOINT,
     EXAMENES_STORE_ENDPOINT,
-    ASIGNATURAS_ENDPOINT
+    MODULOS_POR_PROFESOR_ENDPOINT,
+    USUARIOS_ME_ENDPOINT
 } from "../../endpoints.js";
 
 import styles from "./login.module.css";
@@ -16,8 +17,10 @@ function CrearExamen() {
 
     const [usuarios, setUsuarios] = useState([]);
     const [asignaturas, setAsignaturas] = useState([]);
+    const [user, setUser] = useState(null);
 
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
     const [examen, setExamen] = useState({
         user_id: "",
@@ -28,59 +31,95 @@ function CrearExamen() {
     });
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+
+        const getUser = async () => {
+            try {
+                const res = await fetch(USUARIOS_ME_ENDPOINT, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                const data = await res.json();
+                setUser(data);
+
+                setExamen(prev => ({
+                    ...prev,
+                    user_id: data.id
+                }));
+
+            } catch (err) {
+                console.error(err);
+            }
+        };
 
         const getUsuarios = async () => {
             try {
                 const res = await fetch(USUARIOS_INDEX_ENDPOINT, {
-                    method: "GET",
                     headers: {
-                        "Authorization": `Bearer ${token}`
+                        Authorization: `Bearer ${token}`
                     }
                 });
 
                 const data = await res.json();
                 setUsuarios(Array.isArray(data) ? data : data.data || []);
             } catch (err) {
-                setError("Error al cargar usuarios");
+                console.error(err);
             }
         };
+
+        getUser();
+        getUsuarios();
+
+    }, [token]);
+
+    useEffect(() => {
+
+        if (!user?.id) return;
 
         const getAsignaturas = async () => {
             try {
-                const res = await fetch(ASIGNATURAS_ENDPOINT, {
-                    headers: {
-                        "Authorization": `Bearer ${token}`
+                const res = await fetch(
+                    `${MODULOS_POR_PROFESOR_ENDPOINT}/${user.id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
                     }
-                });
+                );
 
                 const data = await res.json();
-                setAsignaturas(Array.isArray(data) ? data : data.data || []);
+
+                const normalizadas = Array.isArray(data)
+                    ? data.map(a => ({
+                        id: a.asignatura_id ?? a.id,
+                        nombre: a.asignatura?.nombre_asignatura ?? a.nombre_asignatura
+                    }))
+                    : [];
+
+                setAsignaturas(normalizadas);
+
             } catch (err) {
-                console.log(err);
+                console.error(err);
             }
         };
 
-        getUsuarios();
         getAsignaturas();
 
-    }, []);
+    }, [user, token]);
 
-const profesores = usuarios.filter(u => u.role_id == 2);
-const alumnos = usuarios.filter(u => u.role_id == 3);
+    const alumnos = usuarios.filter(u => u.role_id == 3);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
 
-        const token = localStorage.getItem("token");
-
         try {
             const res = await fetch(EXAMENES_STORE_ENDPOINT, {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(examen),
@@ -98,32 +137,18 @@ const alumnos = usuarios.filter(u => u.role_id == 3);
         } finally {
             setLoading(false);
         }
-
-        console.log(examen);
     };
 
     return (
         <main className={styles.main}>
             <h1 className={styles.titulo}>Crear examen</h1>
 
-            <form className={styles.formulario} onSubmit={handleSubmit}>
+            {/* PROFESOR */}
+            <div className={styles.info}>
+                <strong>Profesor:</strong> {user?.name}
+            </div>
 
-                {/* PROFESOR */}
-                <select
-                    className={styles.input}
-                    value={examen.user_id}
-                    onChange={(e) =>
-                        setExamen({ ...examen, user_id: e.target.value })
-                    }
-                    required
-                >
-                    <option value="">Selecciona profesor</option>
-                    {profesores.map((prof) => (
-                        <option key={prof.id} value={prof.id}>
-                            {prof.name}
-                        </option>
-                    ))}
-                </select>
+            <form className={styles.formulario} onSubmit={handleSubmit}>
 
                 {/* ALUMNO */}
                 <select
@@ -140,8 +165,8 @@ const alumnos = usuarios.filter(u => u.role_id == 3);
                             {al.name}
                         </option>
                     ))}
-
                 </select>
+
                 {/* ASIGNATURA */}
                 <select
                     className={styles.input}
@@ -152,9 +177,10 @@ const alumnos = usuarios.filter(u => u.role_id == 3);
                     required
                 >
                     <option value="">Selecciona asignatura</option>
+
                     {asignaturas.map((asig) => (
                         <option key={asig.id} value={asig.id}>
-                            {asig.nombre_asignatura}
+                            {asig.nombre}
                         </option>
                     ))}
                 </select>
@@ -163,9 +189,9 @@ const alumnos = usuarios.filter(u => u.role_id == 3);
                 <input
                     className={styles.input}
                     type="number"
-                    placeholder="Nota"
                     min="0"
                     max="10"
+                    placeholder="Nota"
                     value={examen.nota}
                     onChange={(e) =>
                         setExamen({ ...examen, nota: e.target.value })
@@ -193,7 +219,6 @@ const alumnos = usuarios.filter(u => u.role_id == 3);
                 <button className={styles.boton} type="submit">
                     {loading ? "Creando..." : "Crear examen"}
                 </button>
-
             </form>
 
             <button

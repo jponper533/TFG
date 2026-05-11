@@ -40,6 +40,8 @@ function Login() {
 
       localStorage.setItem("token", responseData.token);
       navigate("/home");
+
+      window.location.reload();
     } catch (err) {
       setError(err.message);
     } finally {
