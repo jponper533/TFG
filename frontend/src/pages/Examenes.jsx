@@ -6,6 +6,7 @@ import navStyles from '../components/navigation/navigation.module.css';
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import ExportarExamenesPDF from "../components/exportarExamenes";
 
 function Examenes() {
 
@@ -100,25 +101,35 @@ function Examenes() {
             <div className={styles.titulo}>
                 <h4>Exámenes</h4>
             </div>
-            <div className={styles.botones}>
-                {((users?.role_id === 1 || users?.role_id === 2)) && (
-                    <div className={styles.crearUsuario}>
-                        <NavLink
-                            to={`/examenes-create`}
-                            className={navStyles.iconButton}
-                        >
-                            Crear examen
-                        </NavLink>
-                    </div>
-                )}
+                <div className={styles.botones}>
 
-                <button
-                    className={styles.volver}
-                    onClick={() => navigate("/asignaturas?trimestre=" + trimestre)}
-                >
-                    Volver
-                </button>
-            </div>
+                    <div className={styles.crearUsuario}>
+                        {((users?.role_id === 1 || users?.role_id === 2)) && (
+                            <NavLink
+                                to={`/examenes-create`}
+                                className={navStyles.iconButton}
+                            >
+                                Crear examen
+                            </NavLink>
+                        )}
+                    </div>
+
+                    <button
+                        className={styles.volver}
+                        onClick={() => navigate("/asignaturas?trimestre=" + trimestre)}
+                    >
+                        Volver
+                    </button>
+
+                    {/* COMPONENTE PDF */}
+                        {examenes.length > 0 && (
+                            <ExportarExamenesPDF 
+                                targetId="examenes-cards"
+                                fileName="examenes.pdf"
+                                buttonText="Descargar PDF"
+                            />
+                        )}
+                </div>
 
             {loading ? (
                 <h2>Cargando...</h2>
@@ -126,7 +137,7 @@ function Examenes() {
                 <h4>No hay ningún examen para mostrar</h4>
             ) : (
                 <div className={styles.contorno}>
-                    <div className={styles.card}>
+                    <div id="examenes-cards" className={styles.card}>
                         {examenes.map((ex) => (
                             <div key={ex.id} className={styles.userCard}>
 
