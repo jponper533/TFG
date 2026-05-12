@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import {
     USUARIOS_STORE_ENDPOINT,
@@ -16,12 +17,19 @@ function CrearUsuario() {
 
     const navigate = useNavigate();
 
-    const [user, setUser] = useState({
-        name: "",
-        email: "",
-        password: "",
-        telefono: "",
-        role_id: ""
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset
+    } = useForm({
+        defaultValues: {
+            name: "",
+            email: "",
+            password: "",
+            telefono: "",
+            role_id: ""
+        }
     });
 
     useEffect(() => {
@@ -37,7 +45,6 @@ function CrearUsuario() {
                 });
 
                 const data = await res.json();
-
                 setRoles(Array.isArray(data) ? data : data.data || []);
             } catch (err) {
                 setError("Error al cargar roles");
@@ -47,8 +54,7 @@ function CrearUsuario() {
         getRoles();
     }, []);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (data) => {
         setLoading(true);
         setError(null);
 
@@ -59,18 +65,26 @@ function CrearUsuario() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify(user),
+                body: JSON.stringify(data),
             });
 
+            const responseData = await res.json();
+
             if (!res.ok) {
-                throw new Error("Error al crear el usuario");
+                // Laravel validation errors (422)
+                if (res.status === 422) {
+                    const firstError = Object.values(responseData.errors)[0]?.[0];
+                    throw new Error(firstError || "Error de validación");
+                }
+
+                throw new Error(responseData.message || "Error al crear el usuario");
             }
 
-            await res.json();
-
-            navigate("/home");
+            reset();
+            navigate("/usuarios-admin");
 
         } catch (err) {
             setError(err.message);
@@ -83,59 +97,56 @@ function CrearUsuario() {
         <main className={styles.main}>
             <h1 className={styles.titulo}>Crear usuario</h1>
 
-            <form className={styles.formulario} onSubmit={handleSubmit}>
+            <form className={styles.formulario} onSubmit={handleSubmit(onSubmit)}>
 
                 <input
                     className={styles.input}
                     type="text"
                     placeholder="Nombre"
-                    value={user.name}
-                    onChange={(e) =>
-                        setUser({ ...user, name: e.target.value })
-                    }
-                    required
+                    {...register("name", {
+                        required: "El nombre es obligatorio"
+                    })}
                 />
+                {errors.name && (
+                    <p className={styles.error}>{errors.name.message}</p>
+                )}
 
                 <input
                     className={styles.input}
                     type="email"
                     placeholder="Email"
-                    value={user.email}
-                    onChange={(e) =>
-                        setUser({ ...user, email: e.target.value })
-                    }
-                    required
+                    {...register("email", {
+                        required: "El email es obligatorio"
+                    })}
                 />
+                {errors.email && (
+                    <p className={styles.error}>{errors.email.message}</p>
+                )}
 
                 <input
                     className={styles.input}
                     type="password"
                     placeholder="Password"
-                    value={user.password}
-                    onChange={(e) =>
-                        setUser({ ...user, password: e.target.value })
-                    }
-                    required
+                    {...register("password", {
+                        required: "La contraseña es obligatoria"
+                    })}
                 />
+                {errors.password && (
+                    <p className={styles.error}>{errors.password.message}</p>
+                )}
 
                 <input
                     className={styles.input}
                     type="text"
                     placeholder="Teléfono"
-                    value={user.telefono}
-                    onChange={(e) =>
-                        setUser({ ...user, telefono: e.target.value })
-                    }
+                    {...register("telefono")}
                 />
 
-                {/* ROLES */}
                 <select
                     className={styles.input}
-                    value={user.role_id}
-                    onChange={(e) =>
-                        setUser({ ...user, role_id: e.target.value })
-                    }
-                    required
+                    {...register("role_id", {
+                        required: "Debes seleccionar un rol"
+                    })}
                 >
                     <option value="">Selecciona un rol</option>
 
@@ -147,9 +158,13 @@ function CrearUsuario() {
                         ))}
                 </select>
 
+                {errors.role_id && (
+                    <p className={styles.error}>{errors.role_id.message}</p>
+                )}
+
                 {error && <p className={styles.error}>{error}</p>}
 
-                <button className={styles.boton} type="submit">
+                <button className={styles.boton} type="submit" disabled={loading}>
                     {loading ? "Creando..." : "Crear usuario"}
                 </button>
 

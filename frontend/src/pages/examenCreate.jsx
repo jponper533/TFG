@@ -120,16 +120,22 @@ function CrearExamen() {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
                 },
                 body: JSON.stringify(examen),
             });
+            const responseData = await res.json();
 
             if (!res.ok) {
-                throw new Error("Error al crear el examen");
-            }
+                // Laravel validation errors (422)
+                if (res.status === 422) {
+                    const firstError = Object.values(responseData.errors)[0]?.[0];
+                    throw new Error(firstError || "Error de validación");
+                }
 
-            await res.json();
+                throw new Error(responseData.message || "Error al crear el usuario");
+            };
             navigate("/trimestres");
 
         } catch (err) {

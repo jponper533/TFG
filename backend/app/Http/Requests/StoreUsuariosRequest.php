@@ -28,7 +28,7 @@ class StoreUsuariosRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
-            'telefono' => 'nullable|string|max:20',
+            'telefono' => 'nullable|string|max:20|unique:users',
             'role_id' => 'required|exists:roles,id',
 
         ];
@@ -42,8 +42,9 @@ class StoreUsuariosRequest extends FormRequest
             'email.email' => 'El campo email debe ser una dirección de correo electrónico válida.',
             'email.unique' => 'El email ya está en uso.',
             'password.required' => 'El campo contraseña es obligatorio.',
-            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+            'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
             'telefono.string' => 'El campo teléfono debe ser una cadena de texto.',
+            'telefono.unique' => 'Solo puede haber un telefono por persona',
             'telefono.max' => 'El campo teléfono no debe exceder los 20 caracteres.',
             'role_id.required' => 'El campo rol es obligatorio.',
             'role_id.exists' => 'El rol seleccionado no es válido.',

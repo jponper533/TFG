@@ -1,7 +1,8 @@
 import styles from './login.module.css';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { NOTICIAS_STORE_ENDPOINT, USUARIOS_INDEX_ENDPOINT } from '../../endpoints.js'; 
+import { useForm } from "react-hook-form";
+import { NOTICIAS_STORE_ENDPOINT, USUARIOS_INDEX_ENDPOINT } from '../../endpoints.js';
 
 function CreateNoticia() {
     const [loading, setLoading] = useState(false);
@@ -9,30 +10,36 @@ function CreateNoticia() {
     const [autores, setAutores] = useState([]);
     const navigate = useNavigate();
 
-    const [noticia, setNoticia] = useState({
-        titulo: "",
-        descripcion: "",
-        user_id: "" 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset
+    } = useForm({
+        defaultValues: {
+            titulo: "",
+            descripcion: "",
+            user_id: ""
+        }
     });
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        
+
         const fetchUsuarios = async () => {
             try {
-                // Asumo que tienes un endpoint que devuelve la lista de usuarios
                 const res = await fetch(`${USUARIOS_INDEX_ENDPOINT}`, {
                     headers: {
                         "Authorization": `Bearer ${token}`,
                         "Accept": "application/json"
                     }
                 });
+
                 const data = await res.json();
-                
-                // Filtramos en el cliente si la API no lo hace
+
                 const lista = Array.isArray(data) ? data : data.data || [];
                 const filtrados = lista.filter(u => u.role_id === 1 || u.role_id === 2);
-                
+
                 setAutores(filtrados);
             } catch (err) {
                 console.error("Error cargando autores:", err);
@@ -42,8 +49,7 @@ function CreateNoticia() {
         fetchUsuarios();
     }, []);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (data) => {
         setLoading(true);
         setError(null);
 
@@ -54,15 +60,17 @@ function CreateNoticia() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "application/json", 
+                    "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify(noticia), 
+                body: JSON.stringify(data),
             });
 
             if (!res.ok) throw new Error("Error al publicar la noticia");
 
+            reset(); // limpia el formulario
             navigate("/home");
+
         } catch (err) {
             setError(err.message);
         } finally {
@@ -74,32 +82,31 @@ function CreateNoticia() {
         <main className={styles.main}>
             <h1 className={styles.titulo}>Crear Nueva Noticia</h1>
 
-            <form className={styles.formulario} onSubmit={handleSubmit}>
+            <form className={styles.formulario} onSubmit={handleSubmit(onSubmit)}>
+                
                 <input
                     className={styles.input}
                     type="text"
                     placeholder="Título de la noticia"
-                    value={noticia.titulo}
-                    onChange={(e) => setNoticia({ ...noticia, titulo: e.target.value })}
-                    required
+                    {...register("titulo", { required: "El título es obligatorio" })}
                 />
+                {errors.titulo && (
+                    <p className={styles.error}>{errors.titulo.message}</p>
+                )}
 
                 <input
                     className={styles.input}
+                    type="text"
                     placeholder="Descripción o contenido"
-                    value={noticia.descripcion}
-                    onChange={(e) =>
-                        setNoticia({ ...noticia, descripcion: e.target.value })
-                    }
-                    required
+                    {...register("descripcion", { required: "La descripción es obligatoria" })}
                 />
+                {errors.descripcion && (
+                    <p className={styles.error}>{errors.descripcion.message}</p>
+                )}
 
-                {/* 2. Select para elegir el autor */}
                 <select
                     className={styles.input}
-                    value={noticia.user_id}
-                    onChange={(e) => setNoticia({ ...noticia, user_id: e.target.value })}
-                    required
+                    {...register("user_id", { required: "Debes seleccionar un autor" })}
                 >
                     <option value="">Selecciona quién publica...</option>
                     {autores.map((autor) => (
@@ -108,6 +115,9 @@ function CreateNoticia() {
                         </option>
                     ))}
                 </select>
+                {errors.user_id && (
+                    <p className={styles.error}>{errors.user_id.message}</p>
+                )}
 
                 {error && <p className={styles.error}>{error}</p>}
 
@@ -116,7 +126,10 @@ function CreateNoticia() {
                 </button>
             </form>
 
-            <button className={styles.boton} onClick={() => navigate("/home")}>
+            <button
+                className={styles.boton}
+                onClick={() => navigate("/home")}
+            >
                 Volver
             </button>
         </main>

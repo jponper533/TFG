@@ -48,15 +48,25 @@ function PerfilUsuario() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json",
           "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({ email, password, telefono }),
       });
 
-      if (!resultado.ok) throw new Error("Error al actualizar el perfil");
+      const responseData = await res.json();
 
-      const data = await resultado.json();
-      console.log("Actualización exitosa:", data);
+      if (!resultado.ok) {
+        // Laravel validation errors (422)
+        if (resultado.status === 422) {
+          const firstError = Object.values(responseData.errors)[0]?.[0];
+          throw new Error(firstError || "Error de validación");
+        }
+
+        throw new Error(responseData.message || "Error al crear el usuario");
+      }
+
+      console.log("Actualización exitosa:", responseData);
 
       navigate("/home");
 
@@ -72,26 +82,26 @@ function PerfilUsuario() {
       <h1 className={styles.titulo}>TU PERFIL</h1>
 
       <form className={styles.formulario} onSubmit={handleSubmit}>
-        <input className={styles.input} 
-        type="email" 
-        name="email" 
-        required placeholder='email'  
-        value={user?.email || ""}
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
+        <input className={styles.input}
+          type="email"
+          name="email"
+          required placeholder='email'
+          value={user?.email || ""}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
 
 
-        <input className={styles.input} 
-        type="password" name="password" 
-        placeholder='password' 
+        <input className={styles.input}
+          type="password" name="password"
+          placeholder='password'
         />
 
-        <input className={styles.input} 
-        type="text" 
-        name="telefono" 
-        required placeholder='telefono'  
-        value={user?.telefono || ""}
-        onChange={(e) => setUser({ ...user, telefono: e.target.value })}
+        <input className={styles.input}
+          type="text"
+          name="telefono"
+          required placeholder='telefono'
+          value={user?.telefono || ""}
+          onChange={(e) => setUser({ ...user, telefono: e.target.value })}
         />
 
         {error && <p className={styles.error}>{error}</p>}
