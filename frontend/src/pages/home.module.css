@@ -159,3 +159,112 @@ h2 {
     color: #030303;
     margin-bottom: 10px;
 }
+
+/* ---------------- CALENDARIO ---------------- */
+
+.calendario {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* React Calendar */
+.calendario :global(.react-calendar) {
+    width: 100%;
+    max-width: 900px;
+    background: white;
+    border: none;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-family: Arial, sans-serif;
+}
+
+/* ---------------- DÍAS ---------------- */
+
+.calendario :global(.react-calendar__tile) {
+    padding: 10px 6px;
+    font-size: 14px;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ---------------- TABLET ---------------- */
+
+@media (max-width: 768px) {
+
+    .calendario :global(.react-calendar) {
+        max-width: 600px;
+        padding: 15px;
+    }
+
+    .calendario :global(.react-calendar__tile) {
+        padding: 8px 4px;
+        font-size: 12px;
+        min-height: 34px;
+    }
+
+    .calendario :global(.react-calendar__navigation button) {
+        font-size: 15px;
+    }
+}
+
+/* ---------------- MÓVIL ---------------- */
+
+@media (max-width: 480px) {
+
+    .calendario {
+        padding: 5px;
+    }
+
+    .calendario :global(.react-calendar) {
+        width: 100%;
+        max-width: 300px;
+        padding: 8px;
+        border-radius: 12px;
+        box-sizing: border-box;
+    }
+
+    /* 🔥 SEMANA Y CABECERA MÁS COMPACTA */
+    .calendario :global(.react-calendar__month-view__weekdays) {
+        font-size: 9px;
+    }
+
+    .calendario :global(.react-calendar__month-view__weekdays__weekday) {
+        padding: 2px 0;
+    }
+
+    /* 🔥 CADA DÍA PERFECTAMENTE AJUSTADO */
+    .calendario :global(.react-calendar__tile) {
+        font-size: 9px;          /* números más pequeños */
+        padding: 2px 0;
+        min-height: 26px;        /* clave para que no se salga */
+        max-height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    /* 🔥 EVITAR QUE EL CONTENIDO ROMPA EL CUADRO */
+    .calendario :global(.react-calendar__tile > abbr) {
+        font-size: 9px;
+        line-height: 1;
+    }
+
+    /* 🔥 NAVEGACIÓN MÁS PEQUEÑA */
+    .calendario :global(.react-calendar__navigation) {
+        height: 32px;
+        margin-bottom: 6px;
+    }
+
+    .calendario :global(.react-calendar__navigation button) {
+        font-size: 11px;
+        min-width: 24px;
+        padding: 2px;
+    }
+}

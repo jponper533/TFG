@@ -135,7 +135,7 @@ h2 {
 }
 
 .crearUsuario {
-    padding: 0.5rem 1rem;
+    padding: 0.2rem 0.2rem;
     background-color: #715950;
     color: #f3f2f2;
     border: none;
@@ -162,4 +162,67 @@ h2 {
 
 .volver:hover {
     background-color: #4d3b35;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 99999; /* 🔥 clave para que quede encima de TODO */
+}
+
+.modal {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+
+    width: 90%;
+    max-width: 400px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.btnDelete {
+    background: #e53935;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btnDelete:hover {
+    background: #c2302d;
+}
+
+.btnCancel {
+    background: #ccc;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btnCancel:hover {
+    background: #a8a7a7;
 }

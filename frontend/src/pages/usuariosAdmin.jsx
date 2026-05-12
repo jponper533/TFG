@@ -5,14 +5,18 @@ import { MdEdit } from "react-icons/md";
 import { NavLink } from 'react-router-dom';
 import { FaTrash, FaBook } from "react-icons/fa";
 import navStyles from '../components/navigation/navigation.module.css';
-import { useParams } from 'react-router-dom'
 
 function UsuariosAdmin() {
+
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [users, setUsers] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [deletingId, setDeletingId] = useState(null);
+
+    // 🔥 MODAL STATE
+    const [showModal, setShowModal] = useState(false);
+    const [userToDelete, setUserToDelete] = useState(null);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -53,19 +57,20 @@ function UsuariosAdmin() {
         return () => controller.abort();
     }, [page]);
 
-    const deleteUser = async (id) => {
+    // 🔥 ABRIR MODAL
+    const openDeleteModal = (id) => {
+        setUserToDelete(id);
+        setShowModal(true);
+    };
+
+    // 🔥 CONFIRMAR BORRADO
+    const confirmDelete = async () => {
         const token = localStorage.getItem("token");
 
-        const confirmDelete = window.confirm(
-            "¿Seguro que quieres eliminar este usuario?"
-        );
-
-        if (!confirmDelete) return;
-
-        setDeletingId(id);
+        setDeletingId(userToDelete);
 
         try {
-            const res = await fetch(`${USUARIOS_DELETE_ENDPOINT}/${id}`, {
+            const res = await fetch(`${USUARIOS_DELETE_ENDPOINT}/${userToDelete}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -77,36 +82,37 @@ function UsuariosAdmin() {
                 throw new Error("Error al eliminar usuario");
             }
 
-            setUsers(prev => prev.filter(user => user.id !== id));
+            setUsers(prev => prev.filter(user => user.id !== userToDelete));
 
         } catch (err) {
             console.error(err);
             alert("No se pudo eliminar el usuario");
         } finally {
             setDeletingId(null);
+            setShowModal(false);
+            setUserToDelete(null);
         }
     };
 
     return (
-        
         <main className={styles.main}>
             <h1>USUARIOS</h1>
 
             <div className={styles.crearUsuario}>
-                <NavLink
-                    to={`/usuarios-create`}
-                    className={navStyles.iconButton}
-                >
+                <NavLink to={`/usuarios-create`} className={navStyles.iconButton}>
                     Crear usuario
                 </NavLink>
             </div>
+
             <div className={styles.contorno}>
                 <div className={styles.card}>
+
                     {loading ? (
                         <h2>Cargando...</h2>
                     ) : (
                         users.map((user) => (
                             <div key={user.id} className={styles.userCard}>
+
                                 <div className={styles.botonesytitulo}>
                                     <strong>{user.name}</strong>
 
@@ -119,19 +125,18 @@ function UsuariosAdmin() {
                                         </NavLink>
 
                                         {user.role_id === 2 && (
-                                        <NavLink
-                                            to={`/modulo-profesor/${user.id}`}
-                                            className={navStyles.iconButton}
-                                        >
-                                            <FaBook size={20} color="green" />
-                                        </NavLink>
+                                            <NavLink
+                                                to={`/modulo-profesor/${user.id}`}
+                                                className={navStyles.iconButton}
+                                            >
+                                                <FaBook size={20} color="green" />
+                                            </NavLink>
                                         )}
 
                                         <button
-                                            onClick={() => deleteUser(user.id)}
+                                            onClick={() => openDeleteModal(user.id)}
                                             className={navStyles.iconButton}
                                             disabled={deletingId === user.id}
-                                            style={{ opacity: deletingId === user.id ? 0.5 : 1 }}
                                         >
                                             <FaTrash size={20} color="red" />
                                         </button>
@@ -139,7 +144,7 @@ function UsuariosAdmin() {
                                 </div>
 
                                 <p>{user.email}</p>
-                                <p>Creacion: {user.created_at.split("T")[0] || "Sin fecha de creación"}</p>
+                                <p>Creacion: {user.created_at.split("T")[0]}</p>
                             </div>
                         ))
                     )}
@@ -153,9 +158,7 @@ function UsuariosAdmin() {
                         ← Anterior
                     </button>
 
-                    <span>
-                        Página {page} de {totalPages}
-                    </span>
+                    <span>Página {page} de {totalPages}</span>
 
                     <button
                         onClick={() => setPage(p => Math.min(p + 1, totalPages))}
@@ -165,6 +168,33 @@ function UsuariosAdmin() {
                     </button>
                 </div>
             </div>
+
+            {/* 🔥 MODAL REAL */}
+            {showModal && (
+                <div className={styles.modalOverlay}>
+                    <div className={styles.modal}>
+                        <h3>¿Seguro que quieres eliminar este usuario?</h3>
+
+                        <div className={styles.modalButtons}>
+                            <button
+                                onClick={confirmDelete}
+                                disabled={deletingId !== null}
+                                className={styles.btnDelete}
+                            >
+                                Sí, eliminar
+                            </button>
+
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className={styles.btnCancel}
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </main>
     );
 }

@@ -51,7 +51,6 @@ function Home() {
         <main className={styles.main}>
 
             <h1>Bienvenido {users?.name || "Usuario"}</h1>
-            <h2>Calendario</h2>
             <div className={styles.calendario}>
 
                 <MyCalendar />

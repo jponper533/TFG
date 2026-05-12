@@ -21,12 +21,14 @@ function Examenes() {
     const [deletingId, setDeletingId] = useState(null);
     const [users, setUser] = useState(null);
 
+    // 🔥 MODAL STATE
+    const [showModal, setShowModal] = useState(false);
+    const [examenToDelete, setExamenToDelete] = useState(null);
+
     const token = localStorage.getItem('token');
 
     useEffect(() => {
         const getUser = async () => {
-            const token = localStorage.getItem("token");
-
             const res = await fetch(`${USUARIOS_ME_ENDPOINT}`, {
                 headers: {
                     "Content-Type": "application/json",
@@ -60,8 +62,7 @@ function Examenes() {
                 if (!res.ok) throw new Error("Error al cargar exámenes");
 
                 const data = await res.json();
-
-                setExamenes(data)
+                setExamenes(data);
 
             } catch (err) {
                 console.error(err);
@@ -76,60 +77,67 @@ function Examenes() {
 
     }, [trimestre, asignatura, token]);
 
-    const deleteExamen = async (id) => {
-        try {
-            setDeletingId(id);
+    // 🔥 ABRIR MODAL
+    const openDeleteModal = (id) => {
+        setExamenToDelete(id);
+        setShowModal(true);
+    };
 
-            await fetch(`${EXAMENES_DELETE_ENDPOINT}/${id}`, {
+    // 🔥 CONFIRMAR BORRADO
+    const confirmDelete = async () => {
+        try {
+            setDeletingId(examenToDelete);
+
+            await fetch(`${EXAMENES_DELETE_ENDPOINT}/${examenToDelete}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
 
-            setExamenes(prev => prev.filter(e => e.id !== id));
+            setExamenes(prev => prev.filter(e => e.id !== examenToDelete));
 
         } catch (err) {
             console.error(err);
         } finally {
             setDeletingId(null);
+            setShowModal(false);
+            setExamenToDelete(null);
         }
     };
 
     return (
         <main className={styles.main}>
+
             <div className={styles.titulo}>
                 <h4>Exámenes</h4>
             </div>
-                <div className={styles.botones}>
 
-                    <div className={styles.crearUsuario}>
-                        {((users?.role_id === 1 || users?.role_id === 2)) && (
-                            <NavLink
-                                to={`/examenes-create`}
-                                className={navStyles.iconButton}
-                            >
-                                Crear examen
-                            </NavLink>
-                        )}
-                    </div>
+            <div className={styles.botones}>
 
-                    <button
-                        className={styles.volver}
-                        onClick={() => navigate("/asignaturas?trimestre=" + trimestre)}
-                    >
-                        Volver
-                    </button>
-
-                    {/* COMPONENTE PDF */}
-                        {examenes.length > 0 && (
-                            <ExportarExamenesPDF 
-                                targetId="examenes-cards"
-                                fileName="examenes.pdf"
-                                buttonText="Descargar PDF"
-                            />
-                        )}
+                <div className={styles.crearUsuario}>
+                    {((users?.role_id === 1 || users?.role_id === 2)) && (
+                        <NavLink to={`/examenes-create`} className={navStyles.iconButton}>
+                            Crear examen
+                        </NavLink>
+                    )}
                 </div>
+
+                <button
+                    className={styles.volver}
+                    onClick={() => navigate("/asignaturas?trimestre=" + trimestre)}
+                >
+                    Volver
+                </button>
+
+                {examenes.length > 0 && (
+                    <ExportarExamenesPDF
+                        targetId="examenes-cards"
+                        fileName="examenes.pdf"
+                        buttonText="Descargar PDF"
+                    />
+                )}
+            </div>
 
             {loading ? (
                 <h2>Cargando...</h2>
@@ -142,9 +150,8 @@ function Examenes() {
                             <div key={ex.id} className={styles.userCard}>
 
                                 <div className={styles.botonesytitulo}>
-                                    <strong>
-                                        {ex.asignatura?.nombre_asignatura}
-                                    </strong>
+                                    <strong>{ex.asignatura?.nombre_asignatura}</strong>
+
                                     {((users?.role_id === 1 || users?.role_id === 2)) && (
                                         <div className={styles.botones}>
                                             <NavLink
@@ -155,10 +162,8 @@ function Examenes() {
                                             </NavLink>
 
                                             <button
-                                                onClick={() => deleteExamen(ex.id)}
+                                                onClick={() => openDeleteModal(ex.id)}
                                                 className={navStyles.iconButton}
-                                                disabled={deletingId === ex.id}
-                                                style={{ opacity: deletingId === ex.id ? 0.5 : 1 }}
                                             >
                                                 <FaTrash size={20} color="red" />
                                             </button>
@@ -176,6 +181,32 @@ function Examenes() {
                     </div>
                 </div>
             )}
+            
+            {showModal && (
+                <div className={styles.modalOverlay}>
+                    <div className={styles.modal}>
+                        <h3>¿Seguro que quieres borrar este examen?</h3>
+
+                        <div className={styles.modalButtons}>
+                            <button
+                                onClick={confirmDelete}
+                                disabled={deletingId !== null}
+                                className={styles.btnDelete}
+                            >
+                                Sí, borrar
+                            </button>
+
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className={styles.btnCancel}
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </main>
     );
 }
