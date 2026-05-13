@@ -2,7 +2,11 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://note-book.duckdns.org*"
+      "destination": "duckdns.org*"
+    },
+    {
+      "source": "/((?!api).*)" ,
+      "destination": "/index.html"
     }
   ]
 }
