@@ -72,6 +72,12 @@
     padding: 0 10px;
 }
 
+ul {
+  list-style-type: none; 
+  padding: 0;           
+  margin: 0;           
+}
+
 
 @media screen and (max-width: 768px) {
 
