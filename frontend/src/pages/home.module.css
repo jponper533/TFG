@@ -7,6 +7,7 @@
     background-color: #D9F2FF;
     min-height: 100vh;
     align-items: center;
+    text-align: center;
 
 }
 
@@ -170,7 +171,6 @@ h2 {
     box-sizing: border-box;
 }
 
-/* React Calendar */
 .calendario :global(.react-calendar) {
     width: 100%;
     max-width: 900px;
@@ -182,7 +182,7 @@ h2 {
     font-family: Arial, sans-serif;
 }
 
-/* ---------------- DÍAS ---------------- */
+
 
 .calendario :global(.react-calendar__tile) {
     padding: 10px 6px;
@@ -193,7 +193,6 @@ h2 {
     justify-content: center;
 }
 
-/* ---------------- TABLET ---------------- */
 
 @media (max-width: 768px) {
 
@@ -213,7 +212,6 @@ h2 {
     }
 }
 
-/* ---------------- MÓVIL ---------------- */
 
 @media (max-width: 480px) {
 
@@ -229,7 +227,7 @@ h2 {
         box-sizing: border-box;
     }
 
-    /* 🔥 SEMANA Y CABECERA MÁS COMPACTA */
+
     .calendario :global(.react-calendar__month-view__weekdays) {
         font-size: 9px;
     }
@@ -238,11 +236,11 @@ h2 {
         padding: 2px 0;
     }
 
-    /* 🔥 CADA DÍA PERFECTAMENTE AJUSTADO */
+
     .calendario :global(.react-calendar__tile) {
-        font-size: 9px;          /* números más pequeños */
+        font-size: 9px;          
         padding: 2px 0;
-        min-height: 26px;        /* clave para que no se salga */
+        min-height: 26px;        
         max-height: 26px;
         display: flex;
         align-items: center;
@@ -250,13 +248,13 @@ h2 {
         box-sizing: border-box;
     }
 
-    /* 🔥 EVITAR QUE EL CONTENIDO ROMPA EL CUADRO */
+
     .calendario :global(.react-calendar__tile > abbr) {
         font-size: 9px;
         line-height: 1;
     }
 
-    /* 🔥 NAVEGACIÓN MÁS PEQUEÑA */
+
     .calendario :global(.react-calendar__navigation) {
         height: 32px;
         margin-bottom: 6px;
