@@ -39,15 +39,6 @@ function Navigation() {
   return (
     <nav>
       <div className={navStyles.contenedorIconos}>
-        {/* Botón de modo oscuro */}
-        <button className={navStyles.iconButton}>
-          <HiOutlineLightBulb size={26} color={"#FFD700"} />
-        </button>
-
-        {/* Botón de idioma */}
-        <button className={navStyles.iconButton}>
-          <LiaLanguageSolid size={26} />
-        </button>
 
         {/* Icono de usuario */}
         <div className={navStyles.userContainer}>
