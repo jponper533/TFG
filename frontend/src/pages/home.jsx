@@ -50,9 +50,10 @@ function Home() {
 
         <main className={styles.main}>
 
+<div className={styles.titulo}>
             <h1>Bienvenido {users?.name || "Usuario"}</h1>
+</div>
             <div className={styles.calendario}>
-
                 <MyCalendar />
             </div>
 
