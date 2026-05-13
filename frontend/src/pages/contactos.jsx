@@ -27,19 +27,19 @@ function Contactos() {
                 <h4>¿En qué podemos ayudarte?</h4>
                     <ul>
                         <li>
-                            Problemas de acceso a la plataforma.
+                            - Problemas de acceso a la plataforma.
                         </li>
                         <li>
-                            Recuperación de contraseña.
+                           - Recuperación de contraseña.
                         </li>
                         <li>
-                            Consultas sobre calificaciones y exámenes.
+                           - Consultas sobre calificaciones y exámenes.
                         </li>
                         <li>
-                            Soporte técnico.
+                           - Soporte técnico.
                         </li>
                         <li>
-                            Información académica general.
+                           - Información académica general.
                         </li>
 
                     </ul>
