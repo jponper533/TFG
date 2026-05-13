@@ -40,7 +40,7 @@ function ProtectedRoute({ children }) {
     checkAuth();
   }, [token]);
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) return <h1>Cargando...</h1>;
 
   if (!auth) {
     return <Navigate to="/" replace />;
