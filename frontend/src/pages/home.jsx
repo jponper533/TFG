@@ -11,6 +11,8 @@ function Home() {
     const [totalPages, setTotalPages] = useState(1);
     const [users, setUser] = useState(null);
 
+    const [selectedNoticia, setSelectedNoticia] = useState(null);
+
     useEffect(() => {
         setLoading(true);
 
@@ -45,40 +47,50 @@ function Home() {
         getUser();
     }, []);
 
-    console.log(users);
-    return (
+    const openModal = (noticia) => {
+        setSelectedNoticia(noticia);
+    };
 
+    const closeModal = () => {
+        setSelectedNoticia(null);
+    };
+
+    const truncateText = (text, max = 120) => {
+        if (!text) return "";
+        return text.length > max ? text.substring(0, max) + "..." : text;
+    };
+
+    return (
         <main className={styles.main}>
 
-<div className={styles.titulo}>
-            <h1>Bienvenido {users?.name || "Usuario"}</h1>
-</div>
+            <div className={styles.titulo}>
+                <h1>Bienvenido {users?.name || "Usuario"}</h1>
+            </div>
+
             <div className={styles.calendario}>
                 <MyCalendar />
             </div>
 
             <h2 className={styles.title}>TABLÓN DE ANUNCIOS</h2>
+
             {(users?.role_id === 1) && (
                 <div className={styles.divAnuncio}>
-                    < NavLink className={styles.enlaceAnuncio}
-                        to="/create-anuncio"
-                    >
+                    <NavLink className={styles.enlaceAnuncio} to="/create-anuncio">
                         <span>Crear anuncio</span>
                     </NavLink>
                 </div>
             )}
-            <div className={styles.tablonNoticias}>
 
+            <div className={styles.tablonNoticias}>
                 <div className={styles.card}>
+
                     {loading ? (
                         <p>Cargando...</p>
                     ) : noticias.length === 0 ? (
                         <>
                             <h4>No hay ninguna noticia para mostrar</h4>
                             <div className={styles.divExamen}>
-                                < NavLink className={styles.enlaceExamen}
-                                    to="/trimestres"
-                                >
+                                <NavLink className={styles.enlaceExamen} to="/trimestres">
                                     <span>Ver Examenes</span>
                                 </NavLink>
                             </div>
@@ -87,38 +99,32 @@ function Home() {
                         <>
                             <ul>
                                 {noticias.map((noticia, index) => (
-                                    <li key={index}>
+                                    <li
+                                        key={index}
+                                        className={styles.noticiaItem}
+                                        onClick={() => openModal(noticia)}
+                                    >
                                         <strong>{noticia.titulo}</strong>
-                                        <p>{noticia.descripcion}</p>
+                                        <p>{truncateText(noticia.descripcion)}</p>
                                         <p>{noticia.users?.name || "Sin usuario"}</p>
                                     </li>
                                 ))}
                             </ul>
 
                             <div className={styles.pagination}>
-                                <button
-                                    onClick={() => setPage(page - 1)}
-                                    disabled={page === 1}
-                                >
+                                <button onClick={() => setPage(page - 1)} disabled={page === 1}>
                                     ← Anterior
                                 </button>
 
-                                <span>
-                                    Página {page} de {totalPages}
-                                </span>
+                                <span>Página {page} de {totalPages}</span>
 
-                                <button
-                                    onClick={() => setPage(page + 1)}
-                                    disabled={page === totalPages}
-                                >
+                                <button onClick={() => setPage(page + 1)} disabled={page === totalPages}>
                                     Siguiente →
                                 </button>
                             </div>
 
                             <div className={styles.divExamen}>
-                                < NavLink className={styles.enlaceExamen}
-                                    to="/trimestres"
-                                >
+                                <NavLink className={styles.enlaceExamen} to="/trimestres">
                                     <span>Ver Examenes</span>
                                 </NavLink>
                             </div>
@@ -126,6 +132,24 @@ function Home() {
                     )}
                 </div>
             </div>
+
+            {/* MODAL */}
+            {selectedNoticia && (
+                <div className={styles.modalOverlay} onClick={closeModal}>
+                    <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+
+                        <h2>{selectedNoticia.titulo}</h2>
+                        <p className={styles.descripcion}>{selectedNoticia.descripcion}</p>
+                        <p><strong>Autor:</strong> {selectedNoticia.users?.name || "Sin usuario"}</p>
+
+                        <button onClick={closeModal} className={styles.closeButton}>
+                            Cerrar
+                        </button>
+
+                    </div>
+                </div>
+            )}
+
         </main>
     );
 }
