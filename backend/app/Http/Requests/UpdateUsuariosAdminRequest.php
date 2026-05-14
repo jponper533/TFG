@@ -31,7 +31,7 @@ class UpdateUsuariosAdminRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userId = $this->route('id'); // Obtener el ID del usuario desde la ruta
+        $userId = $this->route('id');
 
         return [
             'email' => 'required|email|unique:users,email,' . $userId,
