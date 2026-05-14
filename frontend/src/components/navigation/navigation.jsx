@@ -1,16 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import navStyles from "./navigation.module.css";
-import { HiOutlineLightBulb } from "react-icons/hi";
 import { FiUser } from "react-icons/fi";
-import { LiaLanguageSolid } from "react-icons/lia";
-import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { USUARIOS_ME_ENDPOINT } from "../../../endpoints";
 
 function Navigation() {
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [users, setUser] = useState(null);
+
   const navigate = useNavigate();
+
+  const dropdownRef = useRef(null);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -20,28 +21,60 @@ function Navigation() {
 
   useEffect(() => {
     const getUser = async () => {
+
       const token = localStorage.getItem("token");
 
-      const res = await fetch(USUARIOS_ME_ENDPOINT,{
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
-      });
+      try {
 
-      const data = await res.json();
-      setUser(data);
+        const res = await fetch(USUARIOS_ME_ENDPOINT, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        const data = await res.json();
+        setUser(data);
+
+      } catch (error) {
+        console.error("Error obteniendo usuario:", error);
+      }
     };
 
     getUser();
+  }, []);
+
+  // Cerrar dropdown al hacer click fuera
+  useEffect(() => {
+
+    const handleClickOutside = (event) => {
+
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+
   }, []);
 
   return (
     <nav>
       <div className={navStyles.contenedorIconos}>
 
-        {/* Icono de usuario */}
-        <div className={navStyles.userContainer}>
+        {/* Usuario */}
+        <div
+          className={navStyles.userContainer}
+          ref={dropdownRef}
+        >
+
           <button
             className={navStyles.iconButton}
             onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -52,6 +85,7 @@ function Navigation() {
           {/* Dropdown */}
           {dropdownOpen && (
             <div className={navStyles.dropdown}>
+
               <button
                 className={navStyles.dropdownButton}
                 onClick={handleLogout}
@@ -59,25 +93,30 @@ function Navigation() {
                 Cerrar sesión
               </button>
 
-
-              <NavLink className={navStyles.enlacePerfil}
+              <NavLink
+                className={navStyles.enlacePerfil}
                 to="/perfil-usuario"
+                onClick={() => setDropdownOpen(false)}
               >
                 <span>Ver perfil</span>
               </NavLink>
 
               {users?.role_id === 1 && (
-                < NavLink className={navStyles.enlacePerfil}
+                <NavLink
+                  className={navStyles.enlacePerfil}
                   to="/usuarios-admin"
+                  onClick={() => setDropdownOpen(false)}
                 >
                   <span>Ver usuarios</span>
                 </NavLink>
               )}
+
             </div>
           )}
+
         </div>
       </div>
-    </nav >
+    </nav>
   );
 }
 
