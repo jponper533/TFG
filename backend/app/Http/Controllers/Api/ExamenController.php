@@ -35,10 +35,10 @@ public function filtroExamenes(Request $request)
     }
 
     if ($user->role_id == 3) {
-        // Alumno → solo sus exámenes
+        // Alumno -> solo sus exámenes
         $query->where('alumno_id', $user->id);
     } else if ($user->role_id == 2) {
-        // Profesor → solo sus exámenes
+        // Profesor -> solo sus exámenes
         $query->where('user_id', $user->id);
     }
 

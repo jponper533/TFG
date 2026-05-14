@@ -14,6 +14,10 @@
 
 }
 
+span {
+    font-size: 1rem;
+}
+
 .tablonNoticias {
     max-width: 800px;
     margin: 0 auto;
@@ -269,3 +273,4 @@ h2 {
         padding: 2px;
     }
 }
+
