@@ -54,10 +54,9 @@ function PerfilUsuario() {
         body: JSON.stringify({ email, password, telefono }),
       });
 
-      const responseData = await res.json();
+      const responseData = await resultado.json();
 
       if (!resultado.ok) {
-        // Laravel validation errors (422)
         if (resultado.status === 422) {
           const firstError = Object.values(responseData.errors)[0]?.[0];
           throw new Error(firstError || "Error de validación");
@@ -71,7 +70,13 @@ function PerfilUsuario() {
       navigate("/home");
 
     } catch (err) {
-      setError(err.message);
+
+      if (err.message === "Failed to fetch") {
+        setError("No se pudo conectar con el servidor");
+      } else {
+        setError(err.message);
+      }
+
     } finally {
       setLoading(false);
     }

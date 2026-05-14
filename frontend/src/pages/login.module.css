@@ -83,3 +83,10 @@ input::placeholder {
 .volver:hover {
     background-color: #4d3b35;
 }
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}

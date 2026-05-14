@@ -139,7 +139,13 @@ function CrearExamen() {
             navigate("/trimestres");
 
         } catch (err) {
-            setError(err.message);
+
+            if (err.message === "Failed to fetch") {
+                setError("No se pudo conectar con el servidor");
+            } else {
+                setError(err.message);
+            }
+
         } finally {
             setLoading(false);
         }

@@ -35,7 +35,7 @@ class UpdateUsuariosRequest extends FormRequest
         return [
             'email' => 'required|email|unique:users,email,' . Auth::id(),
             'password' => 'nullable|string|min:4',
-            'telefono' => 'nullable|string|min:9|max:20|regex:/^[0-9+\-\s\(\)]+$/',
+            'telefono' => 'required|string|min:9|max:20',
         ];
     }
 
@@ -46,7 +46,7 @@ class UpdateUsuariosRequest extends FormRequest
             'email.email' => 'El campo email debe ser una dirección de correo electrónico válida.',
             'password.min' => 'La contraseña debe tener al menos 4 caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
-            'telefono.regex' => 'El teléfono no tiene un formato válido.',
+            'telefono.min' => 'El teléfono debe tener al menos 9 numeros.',
         ];
     }
 }

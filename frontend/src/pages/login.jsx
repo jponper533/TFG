@@ -18,12 +18,11 @@ function Login() {
     }
   }, [navigate]);
 
-  // 3. Cambiamos 'e' por 'data' y quitamos el e.preventDefault()
   const onSubmit = async (data) => {
     setLoading(true);
     setError(null);
 
-    // react-hook-form ya nos entrega los datos limpios en un objeto
+
     const { name, password } = data;
 
     try {
@@ -43,7 +42,13 @@ function Login() {
 
       window.location.reload();
     } catch (err) {
-      setError(err.message);
+
+      if (err.message === "Failed to fetch") {
+        setError("No se pudo conectar con el servidor");
+      } else {
+        setError(err.message);
+      }
+
     } finally {
       setLoading(false);
     }
@@ -52,16 +57,16 @@ function Login() {
   return (
     <main className={styles.main}>
       <h1 className={styles.titulo}>INICIO DE SESIÓN</h1>
-      {/* 4. Envolvemos nuestra función con el handleSubmit del hook */}
+
       <form className={styles.formulario} onSubmit={handleSubmit(onSubmit)}>
         <input
           className={styles.input}
           type="text"
           placeholder="Usuario"
-          /* 5. Registramos los inputs y sus validaciones básicas */
+
           {...register("name", { required: true })}
         />
-        {errors.name && <p>Nombre obligatorio</p>}
+        {errors.name && <p className={styles.error}>Nombre obligatorio</p>}
         <input
           className={styles.input}
           type="password"
@@ -69,7 +74,7 @@ function Login() {
           {...register("password", { required: true })}
 
         />
-        {errors.password && <p>Contraseña obligatoria</p>}
+        {errors.password && <p className={styles.error}>Contraseña obligatoria</p>}
         {error && <p className={styles.error}>{error}</p>}
 
         <button className={styles.boton} type="submit" disabled={loading}>

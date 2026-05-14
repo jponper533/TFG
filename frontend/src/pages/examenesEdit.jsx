@@ -84,7 +84,13 @@ function ExamenEdit() {
                 const data = await res.json();
                 setAsignaturas(Array.isArray(data) ? data : data.data || []);
             } catch (err) {
-                setError("Error asignaturas");
+
+                if (err.message === "Failed to fetch") {
+                    setError("No se pudo conectar con el servidor");
+                } else {
+                    setError(err.message);
+                }
+
             }
         };
 

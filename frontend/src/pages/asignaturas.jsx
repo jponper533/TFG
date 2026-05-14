@@ -8,7 +8,7 @@ function Asignaturas() {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    
+
     const [data, setData] = useState([]);
 
     const token = localStorage.getItem('token')
@@ -28,7 +28,13 @@ function Asignaturas() {
                 setData(result);
 
             } catch (err) {
-                console.error(err);
+
+                if (err.message === "Failed to fetch") {
+                    setError("No se pudo conectar con el servidor");
+                } else {
+                    setError(err.message);
+                }
+
             }
         };
 
