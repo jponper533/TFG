@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUsuariosRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Asignatura;
 use App\Models\Examen;
 use App\Models\Noticia;
 use App\Models\Rol;
