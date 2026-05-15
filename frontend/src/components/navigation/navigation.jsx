@@ -137,6 +137,7 @@ function Navigation() {
                           throw new Error(data.message);
                         }
 
+                        window.location.reload();
                         alert("Datos eliminados correctamente");
                         setDropdownOpen(false);
 
