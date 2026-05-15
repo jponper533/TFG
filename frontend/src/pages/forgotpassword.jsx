@@ -54,9 +54,18 @@ export default function ForgotPassword() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button className={styles.boton} type="submit" disabled={loading}>
-          {loading ? "Cargando..." : "Enviar"}
-        </button>
+        <div className={styles.botones}>
+          <button className={styles.boton} type="submit" disabled={loading}>
+            {loading ? "Cargando..." : "Enviar"}
+          </button>
+
+          <button
+            className={styles.boton}
+            onClick={() => navigate("/")}
+          >
+            Volver
+          </button>
+        </div>
       </form>
 
       {showModal && (
@@ -71,6 +80,7 @@ export default function ForgotPassword() {
             >
               Cerrar
             </button>
+
           </div>
         </div>
       )}
