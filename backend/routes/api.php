@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/roles', [UserController::class, 'roles'
 Route::middleware('auth:sanctum')->get('/verify-token', function (Request $request) {
     return $request->user();
 });
+Route::middleware(['auth:sanctum', 'role:admin'])->delete('/reset-data', [UserController::class, 'resetData']);
 Route::middleware(['auth:sanctum', 'role:admin'])->post('/noticiaStore', [NoticiasController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/asignaturas', [ModuloProfController::class, 'asignaturas']);
 Route::middleware('auth:sanctum')->get('/modulos/{profesorId}', [ModuloProfController::class, 'modulosPorProfesor']);
@@ -33,14 +34,6 @@ Route::middleware('auth:sanctum')->delete('/examenes/{id}', [ExamenController::c
 Route::middleware('auth:sanctum')->post('/examenes', [ExamenController::class, 'store']);
 Route::middleware('auth:sanctum')->put('/examenes/{id}', [ExamenController::class, 'update']);
 Route::middleware('auth:sanctum')->get('/examenes/{id}', [ExamenController::class, 'show']);
-
-
-// Route::post('/examen', [ExamenController::class, 'store']);
-// Route::put('/examen/{id}', [ExamenController::class, 'update']);
-// Route::patch('/examen/{id}', [ExamenController::class, 'update']);
-
-//les puse ese nombre pq me daba conflicto a la hora de entrar en las views
-// });
 
 Route::get('/noticias', [NoticiasController::class, 'index']);
 Route::get('/noticias/{id}', [NoticiasController::class, 'show']);

@@ -22,3 +22,4 @@ export const EXAMENES_STORE_ENDPOINT = `${API_BASE_URL}/examenes`;
 export const EXAMENES_UPDATE_ENDPOINT = `${API_BASE_URL}/examenes`;
 export const EXAMENES_SHOW_ENDPOINT = `${API_BASE_URL}/examenes`;
 export const MODULOS_ENDPOINT = `${API_BASE_URL}/modulos`;
+export const RESET_DATA_ENDPOINT = `${API_BASE_URL}/reset-data`;

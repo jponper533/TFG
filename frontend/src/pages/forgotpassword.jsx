@@ -53,20 +53,17 @@ export default function ForgotPassword() {
           placeholder="Tu email"
           onChange={(e) => setEmail(e.target.value)}
         />
-
-        <div className={styles.botones}>
           <button className={styles.boton} type="submit" disabled={loading}>
             {loading ? "Cargando..." : "Enviar"}
           </button>
-
-          <button
-            className={styles.boton}
-            onClick={() => navigate("/")}
-          >
-            Volver
-          </button>
-        </div>
       </form>
+
+      <button
+        className={styles.boton}
+        onClick={() => navigate("/")}
+      >
+        Volver
+      </button>
 
       {showModal && (
         <div className={styles.modalOverlay}>

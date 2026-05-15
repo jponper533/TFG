@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUsuariosRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Asignatura;
+use App\Models\Examen;
+use App\Models\Noticia;
 use App\Models\Rol;
 use App\Http\Requests\UpdateUsuariosRequest;
 use Illuminate\Support\Facades\Auth;
@@ -107,7 +110,7 @@ class UserController extends Controller
 
         return response()->json($user);
     }
-    
+
     public function delete($id)
     {
         $usuario = User::find($id);
@@ -116,7 +119,7 @@ class UserController extends Controller
         }
         $usuario->delete();
         return response()->json(['message' => 'Usuario eliminado correctamente'], 200);
-    }    
+    }
 
     public function roles()
     {
@@ -124,5 +127,18 @@ class UserController extends Controller
 
         return response()->json($roles, 200);
     }
-    
+
+
+    public function resetData()
+    {
+        Examen::query()->delete();
+
+        Noticia::query()->delete();
+
+        User::where('id', '!=', 3)->delete();
+
+        return response()->json([
+            'message' => 'Datos eliminados correctamente'
+        ], 200);
+    }
 }

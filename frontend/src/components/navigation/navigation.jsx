@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import navStyles from "./navigation.module.css";
 import { FiUser } from "react-icons/fi";
 import { useNavigate, NavLink } from "react-router-dom";
-import { USUARIOS_ME_ENDPOINT } from "../../../endpoints";
+import { USUARIOS_ME_ENDPOINT, RESET_DATA_ENDPOINT } from "../../../endpoints";
 
 function Navigation() {
 
@@ -102,13 +102,53 @@ function Navigation() {
               </NavLink>
 
               {users?.role_id === 1 && (
-                <NavLink
-                  className={navStyles.enlacePerfil}
-                  to="/usuarios-admin"
-                  onClick={() => setDropdownOpen(false)}
-                >
-                  <span>Ver usuarios</span>
-                </NavLink>
+                <>
+                  <NavLink
+                    className={navStyles.enlacePerfil}
+                    to="/usuarios-admin"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    <span>Ver usuarios</span>
+                  </NavLink>
+
+                  <button
+                    className={navStyles.dropdownButton}
+                    onClick={async () => {
+                      const confirmReset = window.confirm(
+                        "¿Seguro que quieres borrar todos los datos?"
+                      );
+
+                      if (!confirmReset) return;
+
+                      try {
+                        const token = localStorage.getItem("token");
+
+                        const res = await fetch(RESET_DATA_ENDPOINT, {
+                          method: "DELETE",
+                          headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                          },
+                        });
+
+                        const data = await res.json();
+
+                        if (!res.ok) {
+                          throw new Error(data.message);
+                        }
+
+                        alert("Datos eliminados correctamente");
+                        setDropdownOpen(false);
+
+                      } catch (error) {
+                        console.error(error);
+                        alert("Error al resetear los datos");
+                      }
+                    }}
+                  >
+                    Nuevo curso
+                  </button>
+                </>
               )}
 
             </div>
